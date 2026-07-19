@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "vtIuP4iBzuM=",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\Atlas\\extrator\\AtlasExtractor\\AtlasExtractor.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\TV Comp\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "C:\\Users\\TV Comp\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.3\\microsoft.netframework.referenceassemblies.net472.1.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

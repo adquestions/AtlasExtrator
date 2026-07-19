@@ -1,0 +1,6 @@
+﻿id,parameterList,bless_num,parameters,raid_buffs,raid_buffs_dec,raidBuffDescList,raidBuffList
+1,[10|15],30,"10,15",240001|240021|240031,"icon_guild_attack|UI_Alliance_raid_22,btn_speedup|UI_Alliance_raid_23",[[icon_guild_attack|UI_Alliance_raid_22]|[btn_speedup|UI_Alliance_raid_23]],[240001|240021|240031]
+2,[20|30],60,"20,30",240002|240022|240032,"icon_guild_attack|UI_Alliance_raid_22,btn_speedup|UI_Alliance_raid_23",[[icon_guild_attack|UI_Alliance_raid_22]|[btn_speedup|UI_Alliance_raid_23]],[240002|240022|240032]
+3,[30|45],90,"30,45",240003|240023|240033,"icon_guild_attack|UI_Alliance_raid_22,btn_speedup|UI_Alliance_raid_23",[[icon_guild_attack|UI_Alliance_raid_22]|[btn_speedup|UI_Alliance_raid_23]],[240003|240023|240033]
+4,[40|60],120,"40,60",240004|240024|240034,"icon_guild_attack|UI_Alliance_raid_22,btn_speedup|UI_Alliance_raid_23",[[icon_guild_attack|UI_Alliance_raid_22]|[btn_speedup|UI_Alliance_raid_23]],[240004|240024|240034]
+5,[50|75],150,"50,75",240005|240025|240035,"icon_guild_attack|UI_Alliance_raid_22,btn_speedup|UI_Alliance_raid_23",[[icon_guild_attack|UI_Alliance_raid_22]|[btn_speedup|UI_Alliance_raid_23]],[240005|240025|240035]

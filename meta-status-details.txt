@@ -1,0 +1,631 @@
+Atlas MetaPosStatus Inspection
+Total metadata tables: 764
+
+Matching table names: 82
+
+activity_dispath_hero
+activity_hero_achievement
+activity_hero_awaken
+alliance_building
+arenasettings
+arena_cross_group
+arena_cross_reward
+arena_rank
+challenge_arena_pve
+challenge_arena_pve_setting
+citybuilding
+citybuilding_bubble
+citybuilding_compensation
+citybuilding_DIY
+citybuilding_DIY_property
+citybuilding_DIY_skill
+citybuilding_DIY_suit
+citybuilding_DIY_suit_property
+citybuilding_DIY_switch
+citybuilding_function
+citybuilding_guidebook
+citybuilding_lvup
+citybuilding_lvup_new
+citybuilding_road
+citybuilding_skin
+citybuilding_skin_suit
+dispath_hero
+fightsettings
+fight_curve
+fight_force_ratio
+fight_type
+gvg_building
+hero
+hero_aura
+hero_awaken
+hero_break
+hero_component
+hero_component_aura
+hero_component_lvup
+hero_component_lvupcost
+hero_detail
+hero_exclusive
+hero_honor
+hero_honor_bonus
+hero_level
+hero_level_soure
+hero_link
+hero_recommend
+hero_skin
+hero_skin_suit
+hero_skin_voice
+hero_star
+hero_talent
+hero_talent_group
+hero_talent_new
+hero_talent_swap
+hero_team
+hero_team_pos
+hero_valhalla
+hero_valhalla_lvup
+hero_voice
+hero_welcome
+Infinite_monster_buildingattr
+kvk_building_intro
+kvk_recycle_building_reward
+map_building
+monster_hero
+monster_hero_dayattr_adjust
+multiplayer_team_hero_born
+player_talent
+player_talent_detail
+player_talent_professional
+pubg_building
+queue_building
+reward_hero
+reward_hero_new
+technology
+technology_advanced_detail
+technology_advanced_tree
+technology_advanced_type
+technology_classfication
+trading_building
+
+========================================
+Detailed MetaPosStatus objects
+========================================
+
+TABLE: activity_dispath_hero
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    10129749
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: activity_hero_achievement
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    4983599
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: activity_hero_awaken
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    22220601
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: alliance_building
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    15379028
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: arenasettings
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    4728781
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: arena_cross_group
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    17839853
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: arena_cross_reward
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    9628459
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: arena_rank
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    5536643
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: challenge_arena_pve
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    22077335
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: challenge_arena_pve_setting
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    22191466
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    22242644
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_bubble
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    16856738
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_compensation
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    11029436
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_DIY
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    23744264
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_DIY_property
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    10645706
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_DIY_skill
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    17811224
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_DIY_suit
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    10102911
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_DIY_suit_property
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    9283536
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_DIY_switch
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    5536973
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_function
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    17486652
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_guidebook
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    5487417
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_lvup
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    15814438
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_lvup_new
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    7106648
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_road
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    23905605
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_skin
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    9482977
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: citybuilding_skin_suit
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    17819426
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: dispath_hero
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    18190025
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: fightsettings
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    4729776
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: fight_curve
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    9903145
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------
+
+TABLE: fight_force_ratio
+OBJECT TYPE: FibMatrix.Config.MetaPosStatus
+Type: FibMatrix.Config.MetaPosStatus
+  Fields: 4
+  System.Int32 pos
+    13901009
+  System.Byte[] src
+    Type: System.Byte[]
+      Length: 24,216,892
+      First bytes: B7-27-48-00-A2-9D-03-00-02-69-64-05-76-61-6C-75-65-10-61-72-65-6E-61-5F-63-79-63-6C-65-5F-74-69
+  System.Int32 patchPos
+    -1
+  System.Byte[] patchSrc
+    <null>
+  Properties: 0
+
+----------------------------------------

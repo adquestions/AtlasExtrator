@@ -1,0 +1,532 @@
+Atlas Meta Type Inspection
+==========================
+
+Matching types found: 10
+
+============================================================
+TYPE
+Full name: CitybuildingLvupMeta
+Assembly: GameProj
+Kind: class
+Visibility: public
+Base type: MetaBase<CitybuildingLvupMeta, CitybuildingLvupMetaBuilder>
+
+GENERIC ARGUMENTS (0)
+
+INTERFACES (2)
+  IMetaImpl<System.Int32>
+  IMeta
+
+CONSTRUCTORS (1)
+  public CitybuildingLvupMeta()
+
+FIELDS (94)
+  private static System.Int32 _attr_type_key2Id
+  private static System.Int32 _buildTime_key2Id
+  private static System.Int32 _cost1_key2Id
+  private static System.Int32 _cost2_key2Id
+  private static System.Int32 _cost3_key2Id
+  private static System.Int32 _des_icon_key2Id
+  private static System.Int32 _des_key2Id
+  private static System.Int32 _emotion_key2Id
+  private static System.Int32 _fightforce_key2Id
+  private static System.Int32 _group2_attr_type_key2Id
+  private static System.Int32 _group2_string_para1_key2Id
+  private static System.Int32 _group2_string_para2_key2Id
+  private static System.Int32 _guidebook_active_attr_key2Id
+  private static System.Int32 _guidebook_lv_points_key2Id
+  private static System.Int32 _index_key2Id
+  private static System.Int32 _is_guidebook_active_key2Id
+  private static System.Int32 _isActivity_key2Id
+  private static System.Int32 _lv_key2Id
+  private static System.Int32 _lv_up_reward_key2Id
+  private static System.Int32 _model_key2Id
+  private static System.Int32 _offline_key2Id
+  private static System.Int32 _para1_key2Id
+  private static System.Int32 _para2_key2Id
+  private static System.Int32 _para3_key2Id
+  private static System.Int32 _para4_key2Id
+  private static System.Int32 _para5_key2Id
+  private static System.Int32 _pre_building_level_key2Id
+  private static System.Int32 _provides_happiness_key2Id
+  private static System.Int32 _restaurant_eat_key2Id
+  private static System.Int32 _shine_lv_key2Id
+  private static System.Int32 _shine_para1_key2Id
+  private static System.Int32 _show_para1_key2Id
+  private static System.Int32 _show_para2_key2Id
+  private static System.Int32 _show_para3_key2Id
+  private static System.Int32 _show_para4_key2Id
+  private static System.Int32 _show_para5_key2Id
+  private static System.Int32 _string_para1_key2Id
+  private static System.Int32 _string_para2_key2Id
+  private static System.Int32 _teamlevel_key2Id
+  private static System.Int32 _unlock_fog_name_key2Id
+  private static System.Int32 _workflowReward_key2Id
+  public System.Int32 attr_type
+  public System.Int32[][] attrArray
+  public System.Int32 buildTime
+  public System.Int32[] cost1
+  public System.Int32[] cost2
+  public System.Int32[] cost3
+  public System.Int32[][] costList
+  public System.String[] des
+  public System.String[] des_icon
+  public System.String[] descs
+  public System.Int32 emotion
+  public System.Int32 fightforce
+  public System.Int32 group2_attr_type
+  public System.String[] group2_string_para1
+  public System.String[] group2_string_para2
+  public System.Int32[][] group2_string_params_1
+  public System.Int32[][] group2_string_params_2
+  public System.String[] guidebook_active_attr
+  public System.Int32 guidebook_lv_points
+  public System.String[] icons
+  public System.Int32 index
+  public System.Int32 is_guidebook_active
+  public System.Int32 isActivity
+  public System.Int32 lv
+  public System.Int32 lv_up_reward
+  public System.String model
+  public System.Int32[] offline
+  public System.Int32[] offlineList
+  public System.Int32 para1
+  public System.Int32 para2
+  public System.Int32 para3
+  public System.Int32 para4
+  public System.Int32 para5
+  public System.Collections.Generic.List<System.Int32> paramDatas
+  public System.String[] pre_building_level
+  public System.Collections.Generic.List<System.ValueTuple<System.Int32, System.Int32>> preBuild
+  public System.Int32 provides_happiness
+  public System.Int32 restaurant_eat
+  public System.Int32 shine_lv
+  public System.Int32[] shine_para1
+  public System.Int32 show_para1
+  public System.Int32 show_para2
+  public System.Int32 show_para3
+  public System.Int32 show_para4
+  public System.Int32 show_para5
+  public System.Collections.Generic.List<System.Int32> showTypes
+  public System.String[] string_para1
+  public System.String[] string_para2
+  public System.Int32[][] string_params_1
+  public System.Int32[][] string_params_2
+  public System.Int32 teamlevel
+  public System.String unlock_fog_name
+  public System.Int32 workflowReward
+
+PROPERTIES (0)
+
+METHODS (3)
+  public static System.Void GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)
+  public System.Void UpdateProperty()
+  public virtual System.Void UpdatePropertyFrom(FibMatrix.Config.IMetaKeyValueCollection properties)
+
+============================================================
+TYPE
+Full name: CitybuildingLvupMetaBuilder
+Assembly: GameProj
+Kind: class
+Visibility: public
+Base type: System.Object
+
+GENERIC ARGUMENTS (0)
+
+INTERFACES (1)
+  IMetaBuilder
+
+CONSTRUCTORS (1)
+  public CitybuildingLvupMetaBuilder()
+
+FIELDS (0)
+
+PROPERTIES (0)
+
+METHODS (1)
+  public virtual IMeta Create()
+
+============================================================
+TYPE
+Full name: CitybuildingLvupMetaData
+Assembly: GameProj
+Kind: class
+Visibility: public
+Base type: System.Object
+
+GENERIC ARGUMENTS (0)
+
+INTERFACES (0)
+
+CONSTRUCTORS (2)
+  public CitybuildingLvupMetaData(CitybuildingLvupMeta newMeta)
+  public CitybuildingLvupMetaData(CitybuildingLvupNewMeta newMeta)
+
+FIELDS (55)
+  public System.Collections.Generic.Dictionary<System.Int32, System.Int32> _artifactConvertRate
+  private System.Int32[][] _guideBookAttrs
+  public System.Int32 attr_type
+  public System.Int32[][] attrArray
+  public System.Int32 buildTime
+  public System.Int32[] cost1
+  public System.Int32[] cost2
+  public System.Int32[] cost3
+  public System.Int32[][] costList
+  public System.String[] des
+  public System.String[] des_icon
+  public System.String[] descs
+  public System.Int32 emotion
+  public System.Int32 fightforce
+  public System.Int32 group2_attr_type
+  public System.String[] group2_string_para1
+  public System.String[] group2_string_para2
+  public System.Int32[][] group2_string_params_1
+  public System.Int32[][] group2_string_params_2
+  public System.String[] guidebook_active_attr
+  public System.Int32 guidebook_lv_points
+  public System.String[] icons
+  public System.Int32 id
+  public System.Int32 index
+  public System.Int32 isActivity
+  public System.Int32 lv
+  public System.Int32 lv_up_reward
+  public System.String model
+  public System.Int32[] offline
+  public System.Int32[] offlineList
+  public System.Int32 para1
+  public System.Int32 para2
+  public System.Int32 para3
+  public System.Int32 para4
+  public System.Int32 para5
+  public System.Collections.Generic.List<System.Int32> paramDatas
+  public System.String[] pre_building_level
+  public System.Collections.Generic.List<System.ValueTuple<System.Int32, System.Int32>> preBuild
+  public System.Int32 provides_happiness
+  public System.Int32 restaurant_eat
+  public System.Int32 shine_lv
+  public System.Int32[] shine_para1
+  public System.Int32 show_para1
+  public System.Int32 show_para2
+  public System.Int32 show_para3
+  public System.Int32 show_para4
+  public System.Int32 show_para5
+  public System.Collections.Generic.List<System.Int32> showTypes
+  public System.String[] string_para1
+  public System.String[] string_para2
+  public System.Int32[][] string_params_1
+  public System.Int32[][] string_params_2
+  public System.Int32 teamlevel
+  public System.String unlock_fog_name
+  public System.Int32 workflowReward
+
+PROPERTIES (2)
+  System.Collections.Generic.Dictionary<System.Int32, System.Int32> ArtifactConvertRate { public get; }
+  System.Int32[][] GuidBookAttrs { public get; }
+
+METHODS (3)
+  public System.Void GetLvShow(System.Int32 buildingLv, out System.Boolean isShineLv, out System.Int32 showLv)
+  public System.Boolean IsShineLv()
+  public System.Void UpdateProperty()
+
+============================================================
+TYPE
+Full name: FibMatrix.Config.MetaRawContext
+Assembly: FMCommon
+Kind: class
+Visibility: public
+Base type: System.Object
+
+GENERIC ARGUMENTS (0)
+
+INTERFACES (0)
+
+CONSTRUCTORS (1)
+  public MetaRawContext(System.String[] uniqueStrs, System.Int32[] uniqueInts, System.Int64[] uniqueLongs, System.Single[] uniqueFloats, System.Double[] uniqueDoubles, System.Collections.Generic.Dictionary<System.String, FibMatrix.Config.MetaPosStatus> metaSetPosMap, System.Collections.Generic.Dictionary<System.String, FibMatrix.Config.MetaPosStatus> rawBytesPosMap, System.Boolean logPerformanceWarning = True)
+
+FIELDS (8)
+  private System.Boolean _logPerformanceWarning
+  private System.Collections.Generic.Dictionary<System.String, FibMatrix.Config.MetaPosStatus> _metaSetPosMap
+  private System.Collections.Generic.Dictionary<System.String, FibMatrix.Config.MetaPosStatus> _rawBytesPosMap
+  private System.Double[] _uniqueDoubles
+  private System.Single[] _uniqueFloats
+  private System.Int32[] _uniqueInts
+  private System.Int64[] _uniqueLongs
+  private System.String[] _uniqueStrs
+
+PROPERTIES (5)
+  System.Double[] uniqueDoubles { public get; }
+  System.Single[] uniqueFloats { public get; }
+  System.Int32[] uniqueInts { public get; }
+  System.Int64[] uniqueLongs { public get; }
+  System.String[] uniqueStrs { public get; }
+
+METHODS (8)
+  private System.Byte[] CombinePatchAndSrc(System.Byte[] src, System.Int32 offset, System.Int32 srcContentLength, System.Byte[] patchSrc, System.Int32 patchOffset, System.Int32 patchContentLength)
+  private System.Byte[] DecodeBlock(System.Byte[] buffer, System.Boolean delayMode, System.Int32 pos, out System.Int32 contentLength, out System.Int32 offset)
+  public System.Void Dispose()
+  public System.Collections.Generic.List<System.String> GetAllMetaNames()
+  public System.Collections.Generic.List<System.String> GetAllRawBytesNames()
+  public FibMatrix.Config.IMetaItemSet GetMetaItemSet(System.String name, System.Boolean delayMode)
+  public System.Byte[] GetRawBytes(System.String name)
+  private static System.Void MemoryCopy(System.Byte* src, System.Byte* dst, System.Int32 copyBytes, ref System.Int32 srcOffset, ref System.Int32 dstOffset)
+
+============================================================
+TYPE
+Full name: LongKeyMetaBase`2
+Assembly: FMCommon
+Kind: class
+Visibility: public
+Base type: System.Object
+
+GENERIC ARGUMENTS (2)
+  T
+  K
+
+INTERFACES (2)
+  IMetaImpl<System.Int64>
+  IMeta
+
+CONSTRUCTORS (1)
+  public LongKeyMetaBase`2()
+
+FIELDS (11)
+  private static System.Collections.Generic.Dictionary<System.Int64, T> __metaMap
+  private static FibMatrix.Config.IMetaItemSetImpl<System.Int64> _cachedMetaItemSet
+  private static System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> _cacheGenMetahandler
+  private static System.Boolean _delayModeFirst
+  private static System.Boolean _delayModeOrigin
+  protected static System.Int32 _id_key2Id
+  private static System.Boolean _isInitGenerateMeta
+  private static System.Boolean _isInitingGenerateMeta
+  protected static System.Boolean _isProcessing
+  private static IMetaBuilder _metaBuilder
+  private System.Int64 <id>k__BackingField
+
+PROPERTIES (2)
+  System.Collections.Generic.Dictionary<System.Int64, T> _metaMap { private get; private set; }
+  System.Int64 id { public get; public set; }
+
+METHODS (15)
+  private static System.Void AddMeta(System.Int64 id, FibMatrix.Config.IMetaKeyValueCollection rawProperties, out T meta)
+  public static System.Void CacheGenMeta(FibMatrix.Config.IMetaItemSet iter, System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> handler, System.Boolean delayModeOrigin, System.Boolean delayModeFirst)
+  private static System.Void DoGenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)
+  private static T DoGetMeta(System.Int64 id, System.Boolean logError)
+  public static T EnsureGetMeta(System.Int64 id)
+  public static T FastGetMeta(System.Int64 id)
+  public static System.Void GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)
+  public static T GetMeta(System.Int64 id)
+  public static System.Collections.Generic.IEnumerator<T> GetMetaEnumerator()
+  public static System.Int32 GetMetaTotalCount()
+  public static System.Boolean HasMeta(System.Int64 id)
+  private static System.Void InitGenerateMeta(System.Boolean loadAll)
+  private static System.Void InitMetaMap(FibMatrix.Config.IMetaItemSet iter)
+  public static System.Void TriggerGenerateAllMetaMap()
+  public virtual System.Void UpdatePropertyFrom(FibMatrix.Config.IMetaKeyValueCollection properties)
+
+============================================================
+TYPE
+Full name: MetaBase`2
+Assembly: FMCommon
+Kind: class
+Visibility: public
+Base type: System.Object
+
+GENERIC ARGUMENTS (2)
+  T
+  K
+
+INTERFACES (2)
+  IMetaImpl<System.Int32>
+  IMeta
+
+CONSTRUCTORS (1)
+  public MetaBase`2()
+
+FIELDS (11)
+  private static System.Collections.Generic.Dictionary<System.Int32, T> __metaMap
+  private static FibMatrix.Config.IMetaItemSetImpl<System.Int32> _cachedMetaItemSet
+  private static System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> _cacheGenMetahandler
+  private static System.Boolean _delayModeFirst
+  private static System.Boolean _delayModeOrigin
+  protected static System.Int32 _id_key2Id
+  private static System.Boolean _isInitGenerateMeta
+  private static System.Boolean _isInitingGenerateMeta
+  private static System.Boolean _isProcessing
+  private static IMetaBuilder _metaBuilder
+  private System.Int32 <id>k__BackingField
+
+PROPERTIES (2)
+  System.Collections.Generic.Dictionary<System.Int32, T> _metaMap { private get; private set; }
+  System.Int32 id { public get; public set; }
+
+METHODS (15)
+  private static System.Void AddMeta(System.Int32 id, FibMatrix.Config.IMetaKeyValueCollection rawProperties, out T meta)
+  public static System.Void CacheGenMeta(FibMatrix.Config.IMetaItemSet iter, System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> handler, System.Boolean delayModeOrigin, System.Boolean delayModeFirst)
+  private static System.Void DoGenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)
+  private static T DoGetMeta(System.Int32 id, System.Boolean logError)
+  public static T EnsureGetMeta(System.Int32 id)
+  public static T FastGetMeta(System.Int32 id)
+  public static System.Void GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)
+  public static T GetMeta(System.Int32 id)
+  public static System.Collections.Generic.IEnumerator<T> GetMetaEnumerator()
+  public static System.Int32 GetMetaTotalCount()
+  public static System.Boolean HasMeta(System.Int32 id)
+  private static System.Void InitGenerateMeta(System.Boolean loadAll)
+  private static System.Void InitMetaMap(FibMatrix.Config.IMetaItemSet iter)
+  public static System.Void TriggerGenerateAllMetaMap()
+  public virtual System.Void UpdatePropertyFrom(FibMatrix.Config.IMetaKeyValueCollection properties)
+
+============================================================
+TYPE
+Full name: MetaManager
+Assembly: GameProj
+Kind: class
+Visibility: public
+Base type: System.Object
+
+GENERIC ARGUMENTS (0)
+
+INTERFACES (0)
+
+CONSTRUCTORS (1)
+  private MetaManager()
+
+FIELDS (7)
+  private System.Collections.Generic.Dictionary<System.String, System.Action<FibMatrix.Config.IMetaItemSet, System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean>, System.Boolean, System.Boolean>> _cacheContexts
+  private System.Boolean _delayModeFirst
+  private static MetaManager _instance
+  private System.Int32 _metaChangeToDelayModeCount
+  private System.Collections.Generic.Dictionary<System.String, System.Collections.Generic.KeyValuePair<System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean>, System.Boolean>> _metaDsContexts
+  private static System.Double _metaTimer
+  private System.Collections.Generic.Dictionary<System.String, System.Boolean> _supportDelayFirst
+
+PROPERTIES (1)
+  MetaManager instance { public get; }
+
+METHODS (3)
+  private System.Void AddMetaGenerate(System.String metaName, System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> genMetaHandler, System.Action<FibMatrix.Config.IMetaItemSet, System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean>, System.Boolean, System.Boolean> cacheGenMetaHandler, System.Boolean supportDelayFirst, System.Boolean delayMode = False)
+  private System.Void DoAddMetas()
+  public System.Collections.Generic.IEnumerator<System.String> UpdateMeta(System.Byte[] metaRaw, System.Byte[] patchMetaRaw = null)
+
+============================================================
+TYPE
+Full name: MetaManager+<>c
+Assembly: GameProj
+Kind: class
+Visibility: private
+Base type: System.Object
+
+GENERIC ARGUMENTS (0)
+
+INTERFACES (0)
+
+CONSTRUCTORS (2)
+  private static <>c()
+  public <>c()
+
+FIELDS (6)
+  public static readonly MetaManager+<>c <>9
+  public static System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> <>9__12_0
+  public static System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> <>9__12_1
+  public static System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> <>9__12_2
+  public static System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> <>9__12_3
+  public static System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> <>9__12_4
+
+PROPERTIES (0)
+
+METHODS (5)
+  internal System.Void <DoAddMetas>b__12_0(FibMatrix.Config.IMetaItemSet set, System.Boolean delay)
+  internal System.Void <DoAddMetas>b__12_1(FibMatrix.Config.IMetaItemSet set, System.Boolean delay)
+  internal System.Void <DoAddMetas>b__12_2(FibMatrix.Config.IMetaItemSet set, System.Boolean delay)
+  internal System.Void <DoAddMetas>b__12_3(FibMatrix.Config.IMetaItemSet set, System.Boolean delay)
+  internal System.Void <DoAddMetas>b__12_4(FibMatrix.Config.IMetaItemSet set, System.Boolean delay)
+
+============================================================
+TYPE
+Full name: MetaManager+<UpdateMeta>d__11
+Assembly: GameProj
+Kind: class
+Visibility: private
+Base type: System.Object
+
+GENERIC ARGUMENTS (0)
+
+INTERFACES (3)
+  System.Collections.Generic.IEnumerator<System.String>
+  System.IDisposable
+  System.Collections.IEnumerator
+
+CONSTRUCTORS (1)
+  public <UpdateMeta>d__11(System.Int32 <>1__state)
+
+FIELDS (7)
+  private System.Int32 <>1__state
+  private System.String <>2__current
+  public MetaManager <>4__this
+  private System.Collections.Generic.Dictionary<System.String, System.Collections.Generic.KeyValuePair<System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean>, System.Boolean>> <iter>5__3
+  private FibMatrix.Config.MetaRawContext <metaRawContext>5__2
+  public System.Byte[] metaRaw
+  public System.Byte[] patchMetaRaw
+
+PROPERTIES (2)
+  System.String System.Collections.Generic.IEnumerator<System.String>.Current { private get; }
+  System.Object System.Collections.IEnumerator.Current { private get; }
+
+METHODS (3)
+  private virtual System.Boolean MoveNext()
+  private virtual System.Void System.Collections.IEnumerator.Reset()
+  private virtual System.Void System.IDisposable.Dispose()
+
+============================================================
+TYPE
+Full name: StringKeyMetaBase`2
+Assembly: FMCommon
+Kind: class
+Visibility: public
+Base type: System.Object
+
+GENERIC ARGUMENTS (2)
+  T
+  K
+
+INTERFACES (2)
+  IMetaImpl<System.String>
+  IMeta
+
+CONSTRUCTORS (1)
+  public StringKeyMetaBase`2()
+
+FIELDS (11)
+  private static System.Collections.Generic.Dictionary<System.String, T> __metaMap
+  private static FibMatrix.Config.IMetaItemSetImpl<System.String> _cachedMetaItemSet
+  private static System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> _cacheGenMetahandler
+  private static System.Boolean _delayModeFirst
+  private static System.Boolean _delayModeOrigin
+  protected static System.Int32 _id_key2Id
+  private static System.Boolean _isInitGenerateMeta
+  private static System.Boolean _isInitingGenerateMeta
+  private static System.Boolean _isProcessing
+  private static IMetaBuilder _metaBuilder
+  private System.String <id>k__BackingField
+
+PROPERTIES (2)
+  System.Collections.Generic.Dictionary<System.String, T> _metaMap { private get; private set; }
+  System.String id { public get; public set; }
+
+METHODS (15)
+  private static System.Void AddMeta(System.String id, FibMatrix.Config.IMetaKeyValueCollection rawProperties, out T meta)
+  public static System.Void CacheGenMeta(FibMatrix.Config.IMetaItemSet iter, System.Action<FibMatrix.Config.IMetaItemSet, System.Boolean> handler, System.Boolean delayModeOrigin, System.Boolean delayModeFirst)
+  private static System.Void DoGenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)
+  private static T DoGetMeta(System.String id, System.Boolean logError)
+  public static T EnsureGetMeta(System.String id)
+  public static T FastGetMeta(System.String id)
+  public static System.Void GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)
+  public static T GetMeta(System.String id)
+  public static System.Collections.Generic.IEnumerator<T> GetMetaEnumerator()
+  public static System.Int32 GetMetaTotalCount()
+  public static System.Boolean HasMeta(System.String id)
+  private static System.Void InitGenerateMeta(System.Boolean loadAll)
+  private static System.Void InitMetaMap(FibMatrix.Config.IMetaItemSet iter)
+  public static System.Void TriggerGenerateAllMetaMap()
+  public virtual System.Void UpdatePropertyFrom(FibMatrix.Config.IMetaKeyValueCollection properties)
+

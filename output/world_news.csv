@@ -1,0 +1,4 @@
+﻿id,new_title,trigger_condition
+1,new_title_1,200|500000
+2,new_title_2,3600|10|2000000|10
+3,new_title_3,

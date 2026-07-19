@@ -1,0 +1,12 @@
+﻿id,citybuilding_lv,if_double,key,leader_times,limit_time,own_royal,reset_type,watch_reward
+1001,1,1,top_resource_name_7,-1,5,801|802,1,86101
+9001,1,1,top_resource_name_3,-1,5,801|802,1,40703
+9002,7,1,top_resource_name_4,-1,5,801|802,1,40701
+9003,7,1,top_resource_name_5,-1,5,801|802,1,40702
+9004,10,1,goods_name_206,-1,3,801|802,1,40711
+9005,12,1,goods_name_250,-1,3,801|802,1,40712
+9006,15,1,goods_name_405230001,-1,3,801|802,1,40713
+9007,26,1,top_resource_name_17,-1,3,801|802,1,40714
+9008,18,0,video_profit_name_9007,-1,1,801|802,1,411265001
+9009,18,0,video_profit_name_9009,-1,1,801|802,1,604239001
+9010,12,0,goods_name_1043,-1,1,801|802,1,604239002

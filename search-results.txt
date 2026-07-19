@@ -1,0 +1,83 @@
+Atlas Meta Extractor
+Input folder: C:\Projects\Atlas\extrator\input
+Meta file exists: True
+
+Loaded: GameProj
+Loaded: Assembly-CSharp
+Loaded: FMBase
+Loaded: FMCommon
+
+Searching types and methods...
+
+[GameProj] MetaManager
+    System.Collections.Generic.IEnumerator`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] UpdateMeta(System.Byte[] metaRaw, System.Byte[] patchMetaRaw)
+
+[GameProj] MetaLoadTask
+
+[GameProj] MapDataCache
+    MapDataCache DeserializeFrom(System.String key, System.Byte[] bytes, System.Int32 index)
+    System.Void DeserializeFromImpl(System.Byte[] bytes)
+
+[GameProj] Thrift.ThriftSerialize
+    System.Void DeSerialize(Thrift.Protocol.TBase tbase, System.Byte[] bytes, System.Int32 offset, System.Int32 length, System.Boolean compressed)
+
+[GameProj] Thrift.Transport.TMemoryBuffer
+     DeSerialize(System.Byte[] buf)
+
+[GameProj] BestHTTP.SecureProtocol.Org.BouncyCastle.Crypto.Tls.TlsEccUtilities
+    BestHTTP.SecureProtocol.Org.BouncyCastle.Math.BigInteger DeserializeECFieldElement(System.Int32 fieldSize, System.Byte[] encoding)
+    BestHTTP.SecureProtocol.Org.BouncyCastle.Math.EC.ECPoint DeserializeECPoint(System.Byte[] ecPointFormats, BestHTTP.SecureProtocol.Org.BouncyCastle.Math.EC.ECCurve curve, System.Byte[] encoding)
+    BestHTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters.ECPublicKeyParameters DeserializeECPublicKey(System.Byte[] ecPointFormats, BestHTTP.SecureProtocol.Org.BouncyCastle.Crypto.Parameters.ECDomainParameters curve_params, System.Byte[] encoding)
+
+[GameProj] MetaManager+<>c
+
+[GameProj] MetaManager+<UpdateMeta>d__11
+
+[GameProj] MetaLoadTask+LoadSource
+
+[GameProj] MetaLoadTask+MetaLoadContext
+
+[GameProj] MetaLoadTask+<>c__DisplayClass15_0
+
+[GameProj] MetaLoadTask+<>c__DisplayClass30_0
+
+[GameProj] MetaLoadTask+<ParseMetaImp>d__27
+
+[Assembly-CSharp] RemotePackageDownload
+    System.Object DeserializeJson(System.String json, System.Type type)
+
+[Assembly-CSharp] FM_MonoStaticWrap.FibMatrix_AssetConfigSerializer_Wrap
+    System.IntPtr F_DeserializeAssetsConfig3(System.IntPtr arg0, System.Byte arg1, System.IntPtr arg2)
+    System.IntPtr F_DeserializeAssetsConfigFromString4(System.IntPtr arg0)
+    System.IntPtr F_DeserializeAssetsList5(System.IntPtr arg0, System.IntPtr arg1)
+    System.IntPtr F_DeserializeAssetsList6(System.IntPtr arg0)
+
+[Assembly-CSharp] FM_MonoStaticWrap.RemotePackageDownload_Wrap
+    System.IntPtr F_DeserializeJson0(System.IntPtr arg0, System.IntPtr arg1)
+
+[Assembly-CSharp] FM_MonoStaticWrap.SlicedFilledImage_Wrap
+    System.Void M_OnAfterDeserialize4(System.Int32 selfPtr)
+
+[Assembly-CSharp] FM_MonoStaticWrap.UnityEngine_Rendering_Universal_UniversalAdditionalCameraData_Wrap
+    System.Void M_OnAfterDeserialize2(System.Int32 selfPtr)
+
+[Assembly-CSharp] FM_MonoStaticWrap.UnityEngine_UI_Image_Wrap
+    System.Void M_OnAfterDeserialize2(System.Int32 selfPtr)
+
+[FMBase] SerializedDictionary`2
+    System.Void OnAfterDeserialize()
+
+[FMBase] SlicedFilledImage
+    System.Void OnAfterDeserialize()
+
+[FMBase] FibMatrix.AssetConfigSerializer
+    FibMatrix.AssetConfig DeserializeAssetsConfig(System.Byte[] src, System.Boolean compressed, System.Func`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[FibMatrix.AssetConfig, FMBase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]] jsonParseFunc)
+    FibMatrix.AssetConfig DeserializeAssetsConfigFromString(System.String rawJson)
+    FibMatrix.AssetList DeserializeAssetsList(System.Byte[] src, System.Func`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[FibMatrix.AssetList, FMBase, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]] jsonParseFunc)
+    System.String DeserializeAssetsList(System.Byte[] src)
+
+[FMCommon] FibMatrix.Config.ConfigFormatter
+    FibMatrix.Config.MetaRawContext DeserializeMeta(System.Byte[] src, System.Byte[] patchSrc, System.Boolean logPerformanceWarning, System.Boolean forceUseSystemGZip)
+    System.Collections.Generic.Dictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]] DeserializeLocale(System.Byte[] src)
+
+Press Enter to close.

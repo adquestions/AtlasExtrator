@@ -1,0 +1,10 @@
+﻿id,getherSpeed,LockTech,alliance_tech_id,desc,gather_speed,gather_time,level,level_max,lifetime,list_ticon,load_factor,mail_icon,model,name,new_ui_banner,resource_max,resource_type,size,techIds
+2,6,<ERROR:TargetInvocationException>,[30101],alliance_resource_desc_2,6,1,1,2,259200,icon_building_wood,5,icon_gather_res_4,res_alliance_wood_001,alliance_resource_2,banner_bubble_Building_401,26000000,4,1,[30101]
+1,6,<ERROR:TargetInvocationException>,[30201],alliance_resource_desc_1,6,1,1,2,259200,icon_building_stone,5,icon_gather_res_5,res_alliance_stone_001,alliance_resource_1,banner_bubble_Building_501,26000000,5,1,[30201]
+3,3,<ERROR:TargetInvocationException>,[30301],alliance_resource_desc_3,3,1,1,2,259200,icon_building_meats,5,icon_gather_res_3,res_alliance_meats_001,alliance_resource_3,banner_bubble_Building_601,13000000,3,1,[30301]
+4,3,<ERROR:TargetInvocationException>,[3020401],alliance_resource_desc_5,3,1,1,2,259200,icon_building_crystal,5,icon_gather_res_6,res_alliance_crystal_001,alliance_resource_5,banner_bubble_Building_701,13000000,6,1,[3020401]
+201,8,<ERROR:TargetInvocationException>,[20180401],alliance_resource_desc_2,8,1,2,2,259200,icon_building_wood,5,icon_gather_res_4,res_alliance_wood_001_lv2,alliance_resource_2,banner_bubble_Building_401,52000000,4,1,[20180401]
+101,8,<ERROR:TargetInvocationException>,[20200401],alliance_resource_desc_1,8,1,2,2,259200,icon_building_stone,5,icon_gather_res_5,res_alliance_stone_001_lv2,alliance_resource_1,banner_bubble_Building_501,52000000,5,1,[20200401]
+301,4,<ERROR:TargetInvocationException>,[20220401],alliance_resource_desc_3,4,1,2,2,259200,icon_building_meats,5,icon_gather_res_3,res_alliance_meats_001_lv2,alliance_resource_3,banner_bubble_Building_601,26000000,3,1,[20220401]
+401,4,<ERROR:TargetInvocationException>,[3030401],alliance_resource_desc_5,4,1,2,2,259200,icon_building_crystal,5,icon_gather_res_6,res_alliance_crystal_001_lv2,alliance_resource_5,banner_bubble_Building_701,26000000,6,1,[3030401]
+1001,3,,,pal_catch_palace_desc,3,1,1,1,259200,icon_building_11,5,icon_gather_res_6,res_alliance_relic_secret_001,pal_catch_city_secret_palace,banner_S4fortress_castle6,26000000,6,2,[]

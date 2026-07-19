@@ -1,0 +1,5 @@
+﻿id,openTechCache,is_open,open_tech,order,pageicon,pagename,season
+1,[],1,,1,icon_guild_science1,alliance_tech_page1,0
+201,[21301|40302],1,21301|40302,2,icon_guild_science3,alliance_tech_page2,0
+101,[],1,,101,icon_guild_science4,alliance_tech_tips101,1
+3,[20220401],1,20220401,3,tech_guild_001,alliance_tech_page3,0

@@ -1,0 +1,4 @@
+﻿id,disappear_time,help_reward,icon,mail_id,max_player,model,name,new_ui_banner,quality,reward_id,show_quality,speed_up,task_desc,time
+1,259200,15201,icon_petegg01,1128,10,Avatar/CharFrame/CharFrame_egg3,pet_egg_05,banner_bubble_petegg01,6000,15101,2,20,bounty_task_desc_06,30
+2,259200,15202,icon_petegg02,1128,10,Avatar/CharFrame/CharFrame_egg2,pet_egg_08,banner_bubble_petegg02,4000,15102,3,20,bounty_task_desc_06,30
+3,259200,15203,icon_petegg03,1128,10,Avatar/CharFrame/CharFrame_egg1,pet_egg_09,banner_bubble_petegg03,0,15103,4,20,bounty_task_desc_06,30

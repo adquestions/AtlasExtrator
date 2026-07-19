@@ -1,0 +1,4 @@
+﻿id,unlockParam,name,pic,unlock
+1,,treasure_1,,
+2,[1|10005],treasure_1,,1|10005
+3,,treasure_1,,-1

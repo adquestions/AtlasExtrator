@@ -1,0 +1,3 @@
+﻿id,close_des,condition,name,pic
+1,tech_des_1,,tech_name_1,tech_banner_1
+2,tech_des_2,1|2402|1,tech_name_2,tech_banner_2

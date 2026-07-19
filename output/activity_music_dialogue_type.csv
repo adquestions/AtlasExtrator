@@ -1,0 +1,7 @@
+﻿id,dialogue_end,dialogue_open,dialogueEnd,dialogueOpen,type
+1,activity_music_room_dialogue_leave,music_dialogue_title_1_1,[activity_music_room_dialogue_leave],[music_dialogue_title_1_1],1
+2,activity_music_room_dialogue_leave,music_dialogue_title_2_1,[activity_music_room_dialogue_leave],[music_dialogue_title_2_1],2
+3,activity_music_room_dialogue_leave,music_dialogue_title_3_1,[activity_music_room_dialogue_leave],[music_dialogue_title_3_1],3
+4,activity_music_room_dialogue_leave,music_dialogue_title_4_1,[activity_music_room_dialogue_leave],[music_dialogue_title_4_1],4
+5,activity_music_room_dialogue_leave,music_dialogue_title_5_1,[activity_music_room_dialogue_leave],[music_dialogue_title_5_1],5
+6,activity_music_room_dialogue_leave,music_dialogue_title_6_1,[activity_music_room_dialogue_leave],[music_dialogue_title_6_1],6

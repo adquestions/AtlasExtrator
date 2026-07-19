@@ -1,0 +1,39 @@
+﻿Assembly,FullTypeName,GenerateMetaSignatures
+GameProj,ActivitySourceMeta,
+GameProj,AlliancePositionMeta,
+GameProj,AlliancePowerMeta,
+GameProj,AllianceSettingMeta,
+GameProj,Area_v3Meta,"Area_v3Meta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,BuffMeta+BuffActionMeta,
+GameProj,CitybuildingMeta,"CitybuildingMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,CityFogMeta,"CityFogMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,DataConfigMeta,"DataConfigMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,DialogEventMeta,"DialogEventMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,ExchangeServerMeta,
+GameProj,GoodsMeta,"GoodsMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,GuideEventMeta,"GuideEventMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,GuideMeta,
+GameProj,GuideUIMeta,"GuideUIMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,HeroDetailMeta,"HeroDetailMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+FMCommon,IMeta,
+GameProj,MapBuildingMeta,"MapBuildingMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,MapEventMeta+EventTalkBubbleMeta,
+GameProj,MonsterMeta+FightBubbleMeta,
+GameProj,NewGuideMeta,"NewGuideMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,PlayerMeta,"PlayerMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,ProvinceMeta,"ProvinceMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,PveMonsterMeta,"PveMonsterMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,RaidMeta,
+GameProj,RewardGroupMeta,"RewardGroupMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,RewardMeta,"RewardMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,SandStormMeta,"SandStormMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,SettingsMeta,"SettingsMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,ShopGiftMeta,"ShopGiftMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,ShopSpringboardMeta,"ShopSpringboardMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,SkillMeta,"SkillMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,TroopDonateBuffMeta,"TroopDonateBuffMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,TroopSkinLevelMeta,"TroopSkinLevelMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,UIPreloadMeta,"UIPreloadMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,UnitMeta,"UnitMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,UserAvatarMeta,"UserAvatarMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"
+GameProj,UserSkinMeta,"UserSkinMeta.GenerateMeta(FibMatrix.Config.IMetaItemSet iter, System.Boolean delayMode)"

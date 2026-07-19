@@ -1,0 +1,32 @@
+Atlas Meta Extractor
+Input folder: C:\Projects\Atlas\extrator\input
+Meta file: C:\Projects\Atlas\extrator\input\Meta.bytes
+Meta file exists: True
+
+Meta.bytes size: 6,631,741 bytes
+Loading FMCommon...
+Formatter type: FibMatrix.Config.ConfigFormatter
+Method found: FibMatrix.Config.MetaRawContext DeserializeMeta(Byte[], Byte[], Boolean, Boolean)
+Parsing Meta.bytes...
+
+SUCCESS: Meta.bytes was parsed.
+Returned type: FibMatrix.Config.MetaRawContext
+
+Properties:
+  System.String[] uniqueStrs = System.String[], Count=236962
+  System.Int32[] uniqueInts = System.Int32[], Count=0
+  System.Int64[] uniqueLongs = System.Int64[], Count=171
+  System.Single[] uniqueFloats = System.Single[], Count=1684
+  System.Double[] uniqueDoubles = System.Double[], Count=662
+
+Fields:
+  System.Collections.Generic.Dictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[FibMatrix.Config.MetaPosStatus, FMCommon, Version=1.0.9083.16428, Culture=neutral, PublicKeyToken=null]] _metaSetPosMap = System.Collections.Generic.Dictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[FibMatrix.Config.MetaPosStatus, FMCommon, Version=1.0.9083.16428, Culture=neutral, PublicKeyToken=null]], Count=764, Sample keys=[arenasettings, fightsettings, alliance, key_server_msg, settings, citysettings, hero_link, funtap_goldblock, world_quick_icon, hero_talent]
+  System.Collections.Generic.Dictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[FibMatrix.Config.MetaPosStatus, FMCommon, Version=1.0.9083.16428, Culture=neutral, PublicKeyToken=null]] _rawBytesPosMap = System.Collections.Generic.Dictionary`2[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089],[FibMatrix.Config.MetaPosStatus, FMCommon, Version=1.0.9083.16428, Culture=neutral, PublicKeyToken=null]], Count=0, Sample keys=[]
+  System.Boolean _logPerformanceWarning = False
+  System.String[] _uniqueStrs = System.String[], Count=236962
+  System.Int32[] _uniqueInts = System.Int32[], Count=0
+  System.Int64[] _uniqueLongs = System.Int64[], Count=171
+  System.Single[] _uniqueFloats = System.Single[], Count=1684
+  System.Double[] _uniqueDoubles = System.Double[], Count=662
+
+Press Enter to close.

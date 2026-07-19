@@ -1,0 +1,5 @@
+﻿id,destroy_type,drop_client,icon,instance_id,level,life_time,map_show_param,map_show_type,model,name
+10001,1,6601,,10001,20,-1,999,1,ins_entrance_003,map_name_10001
+10002,1,6602,,10002,25,-1,999,1,ins_entrance_001,map_name_10002
+10003,1,6603,,10003,30,-1,999,1,ins_entrance_002,map_name_10003
+10004,1,6604,,10004,35,-1,999,1,ins_entrance_004,map_name_10004

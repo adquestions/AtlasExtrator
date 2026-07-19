@@ -1,0 +1,4 @@
+﻿id,DefeatUI_desc,DefeatUI_icon,describe,exchangeRange,functionID,icon,is_open,MainUI_icon,MainUI_isShow,MainUI_name,MainUI_order,MainUI_require,name,weight
+101,stronger_desc_2,Activity_21,UI_Activity_des_001,[[0|68]],212,ActivityList/activity_monthlycard,1,Activity_21,-1,UI_Func_015,701,[0|68],UI_Activity_001,800
+106,stronger_desc_5,Activity_18,UI_Activity_des_004,[],214,ActivityList/activity_zuanshi,1,Activity_18,-1,UI_Func_015,-1,,UI_Activity_004,100
+105,stronger_desc_5,Activity_17,UI_Activity_des_005,[[0|999999999]],215,ActivityList/activity_specialoffers,1,Activity_17,-1,UI_Func_015,999999,[0|999999999],UI_Activity_005,1100

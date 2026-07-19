@@ -1,0 +1,5 @@
+﻿id,icon,name,show_level,unlock_level
+1,slot_001,equipment_slot_name_1,5,5
+2,slot_002,equipment_slot_name_2,5,5
+3,slot_004,equipment_slot_name_4,5,5
+4,slot_003,equipment_slot_name_3,5,5
