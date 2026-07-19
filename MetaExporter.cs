@@ -239,6 +239,17 @@ namespace AtlasExtractor
 
             try
             {
+                // GenerateMeta can partially consume the item-set enumerator
+                // before throwing. Always request a fresh item set for the
+                // raw fallback so it begins at row zero.
+                object rawItemSet = GetMetaItemSet(tableName);
+
+                if (rawItemSet == null)
+                {
+                    throw new InvalidOperationException(
+                        "GetMetaItemSet returned null for raw fallback.");
+                }
+
                 var rawExporter = new RawMetaExporter(
                     _csvWriter);
 
@@ -247,7 +258,7 @@ namespace AtlasExtractor
                 string rawError;
 
                 bool rawSuccess = rawExporter.TryExport(
-                    itemSet,
+                    rawItemSet,
                     csvPath,
                     out rawRowCount,
                     out strategy,
@@ -259,7 +270,7 @@ namespace AtlasExtractor
                     result.RowCount = rawRowCount;
                     result.OutputPath = csvPath;
                     result.MetaTypeName =
-                        "RAW:" + itemSet.GetType().FullName;
+                        "RAW:" + rawItemSet.GetType().FullName;
 
                     _log(
                         "  OK - " +
