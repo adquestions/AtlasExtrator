@@ -127,8 +127,36 @@ namespace AtlasExtractor
                         Console.WriteLine);
 
                     Models.ExportSummary summary =
-                        exporter.ExportAll();
+                    exporter.ExportAll();
 
+                    try
+                    {
+                    LocaleExporter.ExportEnglishLocale(
+                    inputFolder,
+                    outputFolder);
+                    }
+                    catch (Exception ex)
+                    {
+                    Console.WriteLine();
+                    Console.WriteLine(
+                    "English localization export failed:");
+
+                    Console.WriteLine(ex);
+                    }
+
+                    try
+                    {
+                    BuildingDatasetExporter.Export(
+                    outputFolder);
+                    }
+                    catch (Exception ex)
+                    {
+                    Console.WriteLine();
+                    Console.WriteLine(
+                    "Building dataset export failed:");
+
+                    Console.WriteLine(ex);
+                    }
                     Console.WriteLine();
                     Console.WriteLine("EXPORT COMPLETE");
                     Console.WriteLine("========================================");
