@@ -35,7 +35,16 @@ namespace AtlasExtractor
                         "--inspect-raw",
                         StringComparison.OrdinalIgnoreCase);
 
-                if (!inspectRaw)
+                bool inspectCitybuildingRows =
+                args != null &&
+                args.Length > 0 &&
+                string.Equals(
+                args[0],
+                "--inspect-citybuilding-rows",
+                StringComparison.OrdinalIgnoreCase);
+
+                if (!inspectRaw &&
+                !inspectCitybuildingRows)
                 {
                     OutputCleaner.Clean(outputFolder);
                 }
@@ -97,6 +106,15 @@ namespace AtlasExtractor
                             "RAW INSPECTION COMPLETE");
 
                         return 0;
+                    }
+
+                    if (inspectCitybuildingRows)
+                    {
+                    CitybuildingRowInspector.Run(
+                    context,
+                    outputFolder);
+
+                    return 0;
                     }
 
                     var csvWriter = new CsvWriter();
