@@ -205,8 +205,12 @@ namespace AtlasExtractor
              * Cost format:
              * category | resource ID | amount
              */
-            result.ResourceId = parts[1];
-            result.Amount = ParseDouble(parts[2]);
+             result.ResourceId =
+             parts[1].Trim().Trim('[', ']');
+
+             result.Amount =
+             ParseDouble(
+             parts[2].Trim().Trim('[', ']'));
 
             Dictionary<string, string> good;
 
