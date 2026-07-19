@@ -15,6 +15,8 @@ namespace AtlasExtractor.Models
 
         public int TablesEmpty { get; set; }
 
+        public int TablesUnsupported { get; set; }
+
         public int TablesFailed { get; set; }
 
         public long RowsExported { get; set; }

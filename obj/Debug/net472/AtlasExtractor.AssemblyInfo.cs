@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AtlasExtractor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a501b70af4b70483384e4c5a47d776556e7b752e")]
 [assembly: System.Reflection.AssemblyProductAttribute("AtlasExtractor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AtlasExtractor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

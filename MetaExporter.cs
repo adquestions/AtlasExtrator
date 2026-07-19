@@ -10,6 +10,15 @@ namespace AtlasExtractor
 {
     internal sealed class MetaExporter
     {
+        private static readonly HashSet<string> KnownUnsupportedTables =
+            new HashSet<string>(
+                new[]
+                {
+                    "hero_detail",
+                    "skill"
+                },
+                StringComparer.OrdinalIgnoreCase);
+
         private readonly object _context;
         private readonly Assembly _gameAssembly;
         private readonly string _outputFolder;
@@ -98,6 +107,10 @@ namespace AtlasExtractor
                         summary.RowsExported += result.RowCount;
                     }
                 }
+                else if (result.IsUnsupported)
+                {
+                    summary.TablesUnsupported++;
+                }
                 else
                 {
                     summary.TablesFailed++;
@@ -105,6 +118,7 @@ namespace AtlasExtractor
             }
 
             WriteFailureLog(summary);
+            WriteUnsupportedLog(summary);
 
             MetaDiagnostics.Write(
                 _outputFolder,
@@ -265,7 +279,16 @@ namespace AtlasExtractor
                     " | Raw export: " +
                     rawError;
 
-                _log("  FAILED - " + result.ErrorMessage);
+                if (KnownUnsupportedTables.Contains(tableName))
+                {
+                    result.IsUnsupported = true;
+                    _log("  UNSUPPORTED - " + result.ErrorMessage);
+                }
+                else
+                {
+                    _log("  FAILED - " + result.ErrorMessage);
+                }
+
                 return result;
             }
             catch (Exception ex)
@@ -287,7 +310,16 @@ namespace AtlasExtractor
                     ": " +
                     rawActual.Message;
 
-                _log("  FAILED - " + result.ErrorMessage);
+                if (KnownUnsupportedTables.Contains(tableName))
+                {
+                    result.IsUnsupported = true;
+                    _log("  UNSUPPORTED - " + result.ErrorMessage);
+                }
+                else
+                {
+                    _log("  FAILED - " + result.ErrorMessage);
+                }
+
                 return result;
             }
         }
@@ -596,12 +628,37 @@ namespace AtlasExtractor
                 false))
             {
                 foreach (ExportResult failure in summary.Results
-                    .Where(result => !result.Success))
+                    .Where(
+                        result =>
+                            !result.Success &&
+                            !result.IsUnsupported))
                 {
                     writer.WriteLine(
                         failure.TableName +
                         "\t" +
                         failure.ErrorMessage);
+                }
+            }
+        }
+
+        private void WriteUnsupportedLog(
+            ExportSummary summary)
+        {
+            string logPath = Path.Combine(
+                _outputFolder,
+                "_unsupported_tables.log");
+
+            using (var writer = new StreamWriter(
+                logPath,
+                false))
+            {
+                foreach (ExportResult result in summary.Results
+                    .Where(item => item.IsUnsupported))
+                {
+                    writer.WriteLine(
+                        result.TableName +
+                        "\t" +
+                        result.ErrorMessage);
                 }
             }
         }

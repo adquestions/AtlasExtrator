@@ -8,6 +8,8 @@
 
         public bool Success { get; set; }
 
+        public bool IsUnsupported { get; set; }
+
         public long RowCount { get; set; }
 
         public string OutputPath { get; set; }
