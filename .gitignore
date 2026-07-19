@@ -3,3 +3,7 @@ bin/
 obj/
 building_data.zip
 building_data_fixed.zip
+*.zip
+decoder_methods.txt
+locale_methods.txt
+locale_strings.txt
