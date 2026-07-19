@@ -27,7 +27,22 @@ namespace AtlasExtractor
                     projectFolder,
                     "output");
 
-                OutputCleaner.Clean(outputFolder);
+                bool inspectRaw =
+                    args != null &&
+                    args.Length > 0 &&
+                    string.Equals(
+                        args[0],
+                        "--inspect-raw",
+                        StringComparison.OrdinalIgnoreCase);
+
+                if (!inspectRaw)
+                {
+                    OutputCleaner.Clean(outputFolder);
+                }
+                else
+                {
+                    Directory.CreateDirectory(outputFolder);
+                }
 
                 Console.WriteLine("Input folder:");
                 Console.WriteLine(inputFolder);
@@ -68,6 +83,21 @@ namespace AtlasExtractor
                         Console.WriteLine);
 
                     object context = metaLoader.Load();
+
+                    if (inspectRaw)
+                    {
+                        RawMetaInspector.Run(
+                            context,
+                            outputFolder,
+                            "citybuilding",
+                            "goods");
+
+                        Console.WriteLine();
+                        Console.WriteLine(
+                            "RAW INSPECTION COMPLETE");
+
+                        return 0;
+                    }
 
                     var csvWriter = new CsvWriter();
 

@@ -33,35 +33,51 @@ namespace AtlasExtractor
                 Directory.CreateDirectory(directory);
             }
 
+            if (!enumerator.MoveNext())
+            {
+                using (var writer = new StreamWriter(
+                    csvPath,
+                    false,
+                    new UTF8Encoding(true)))
+                {
+                    writer.WriteLine();
+                }
+
+                return 0;
+            }
+
+            object firstRecord = enumerator.Current;
+
+            if (firstRecord != null &&
+                IsMetaKeyValueCollection(firstRecord.GetType()))
+            {
+                return WriteMetaKeyValueRecords(
+                    firstRecord,
+                    enumerator,
+                    csvPath);
+            }
+
+            Type recordType = firstRecord == null
+                ? metaType
+                : firstRecord.GetType();
+
+            List<CsvColumn> columns = BuildColumns(recordType);
+
+            if (columns.Count == 0)
+            {
+                columns.Add(
+                    new CsvColumn
+                    {
+                        Name = "Value",
+                        GetValue = row => row
+                    });
+            }
+
             using (var writer = new StreamWriter(
                 csvPath,
                 false,
                 new UTF8Encoding(true)))
             {
-                if (!enumerator.MoveNext())
-                {
-                    writer.WriteLine();
-                    return 0;
-                }
-
-                object firstRecord = enumerator.Current;
-
-                Type recordType = firstRecord == null
-                    ? metaType
-                    : firstRecord.GetType();
-
-                List<CsvColumn> columns = BuildColumns(recordType);
-
-                if (columns.Count == 0)
-                {
-                    columns.Add(
-                        new CsvColumn
-                        {
-                            Name = "Value",
-                            GetValue = row => row
-                        });
-                }
-
                 writer.WriteLine(
                     string.Join(
                         ",",
@@ -90,6 +106,147 @@ namespace AtlasExtractor
                 }
 
                 return rowCount;
+            }
+        }
+
+        private static bool IsMetaKeyValueCollection(
+            Type type)
+        {
+            return type != null &&
+                   string.Equals(
+                       type.FullName,
+                       "FibMatrix.Config.MetaKeyValueCollection",
+                       StringComparison.Ordinal);
+        }
+
+        private static long WriteMetaKeyValueRecords(
+            object firstRecord,
+            IEnumerator enumerator,
+            string csvPath)
+        {
+            MethodInfo allToDictionaryMethod =
+                firstRecord.GetType().GetMethod(
+                    "AllToDictionary",
+                    BindingFlags.Public |
+                    BindingFlags.NonPublic |
+                    BindingFlags.Instance,
+                    null,
+                    Type.EmptyTypes,
+                    null);
+
+            if (allToDictionaryMethod == null)
+            {
+                throw new MissingMethodException(
+                    firstRecord.GetType().FullName,
+                    "AllToDictionary()");
+            }
+
+            var rows =
+                new List<IDictionary<string, string>>();
+
+            var columns =
+                new HashSet<string>(
+                    StringComparer.OrdinalIgnoreCase);
+
+            AddMetaKeyValueRow(
+                rows,
+                columns,
+                allToDictionaryMethod,
+                firstRecord);
+
+            while (enumerator.MoveNext())
+            {
+                object record = enumerator.Current;
+
+                if (record == null)
+                {
+                    continue;
+                }
+
+                AddMetaKeyValueRow(
+                    rows,
+                    columns,
+                    allToDictionaryMethod,
+                    record);
+            }
+
+            List<string> orderedColumns = columns
+                .OrderBy(
+                    name =>
+                        string.Equals(
+                            name,
+                            "id",
+                            StringComparison.OrdinalIgnoreCase)
+                            ? 0
+                            : 1)
+                .ThenBy(
+                    name => name,
+                    StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            using (var writer = new StreamWriter(
+                csvPath,
+                false,
+                new UTF8Encoding(true)))
+            {
+                writer.WriteLine(
+                    string.Join(
+                        ",",
+                        orderedColumns.Select(Escape)));
+
+                foreach (IDictionary<string, string> row in rows)
+                {
+                    writer.WriteLine(
+                        string.Join(
+                            ",",
+                            orderedColumns.Select(
+                                column =>
+                                {
+                                    string value;
+
+                                    return Escape(
+                                        row.TryGetValue(
+                                            column,
+                                            out value)
+                                            ? value
+                                            : string.Empty);
+                                })));
+                }
+            }
+
+            return rows.Count;
+        }
+
+        private static void AddMetaKeyValueRow(
+            ICollection<IDictionary<string, string>> rows,
+            ISet<string> columns,
+            MethodInfo allToDictionaryMethod,
+            object record)
+        {
+            object raw =
+                allToDictionaryMethod.Invoke(
+                    record,
+                    null);
+
+            IDictionary<string, string> dictionary =
+                raw as IDictionary<string, string>;
+
+            if (dictionary == null)
+            {
+                throw new InvalidOperationException(
+                    "AllToDictionary() did not return IDictionary<string,string>.");
+            }
+
+            var snapshot =
+                new Dictionary<string, string>(
+                    dictionary,
+                    StringComparer.OrdinalIgnoreCase);
+
+            rows.Add(snapshot);
+
+            foreach (string key in snapshot.Keys)
+            {
+                columns.Add(key);
             }
         }
 
