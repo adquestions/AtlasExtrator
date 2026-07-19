@@ -1,5 +1,0 @@
-﻿id,taskConditionVo,jumpParams,scene,show_progress,task_condition,task_condition_num,task_discription,task_guide,task_guide_mun,taskConditionType
-1001,TaskConditionBaseVO,[11],2,1,38,10,alliance_leader_task_1001,13,[11],38
-1002,TaskConditionBaseVO,[],0,1,29,20,alliance_leader_task_1002,-1,,29
-1003,TaskConditionBaseVO,[],0,1,42,10,alliance_leader_task_1003,-1,,42
-1004,TaskCondition_BuildingLvUpLogic,[117],1,1,101,117|10,alliance_leader_task_1004,1,[117],BuildLevelUp

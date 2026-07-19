@@ -1,3 +1,0 @@
-﻿id,bonus_attribute,height,icon,ligeance_height,ligeance_width,model,name,need_desc,need_members,need_tech,type,width
-1,"103|1000,104|1000",2,alliance_building_001,12,12,territoryNormal,alliance_fortress_1,alliance_fortress_need_1,1,-1,1,2
-2,"103|1000,104|1000",2,alliance_building_001,12,12,territoryNormal,alliance_fortress_2,alliance_fortress_need_2,55,-1,1,2

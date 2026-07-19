@@ -1,5 +1,0 @@
-﻿id,building_id,function,function_id,functionIds,inBuildingOffset,offset,scale,slot,slot_finish,slotFinishs,slots
-1,144,-1,[|],[[]|[]],"(0.0, 0.0)",[0|0],90,,,[],[]
-2,115,-1,,[],"(0.0, 0.0)",[0|0],70,[NPC_2_0],,[],[NPC_2_0]
-3,114,-1,,[],"(0.0, 0.0)",[0|0],70,[NPC_3_0],,[],[NPC_3_0]
-4,118,-1,,[],"(0.0, 0.0)",[0|0],70,[NPC_4_0],,[],[NPC_4_0]

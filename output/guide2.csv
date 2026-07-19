@@ -1,4 +1,0 @@
-﻿id,breakSendComplete,conditionList,conditionParamList,guide_appointUI,guide_break,guide_get,guide_get_value,guide_repeat,guide_skip,guide_skip_time,guide_skip_value,guide_step,guide_type,skipConditionList,skipConditionParamList,stepIdList,uiList
-10000,false,[guide_complete],[99999],,-1,[guide_complete],[99999],0,,-1,,[10010],2,,,[10010],
-20000,false,[building_level],[145|1],,-1,[building_level],[145|1],0,,-1,,[200001|200002],2,,,[200001|200002],
-20001,false,[building_level],[145|1],[TalentMainPanel],-1,[building_level],[145|1],0,,-1,,[200003],2,,,[200003],[TalentMainPanel]

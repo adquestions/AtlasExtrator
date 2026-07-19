@@ -1,3 +1,0 @@
-﻿id,can_gem,free_time,free_time_min,function,gacha_exchange,gacha_one,gacha_ten,gacha_times,gem_cost_one,gem_cost_ten,guarantee,item_id,sp_guarantee,tab_icon,tab_name
-1,1,1680,240,115,[404206011|404206012|404206013|404206014|404206015],1,10,520,300,3000,50,201,8|27,Activity_260,gacha_c_name_herotab
-2,0,2400,240,118,[404206051|404206052|404206053|404206054|404206055],1,10,520,300,3000,100,236,8|27,Activity_261,gacha_c_name_artifact

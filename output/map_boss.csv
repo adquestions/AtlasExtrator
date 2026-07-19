@@ -1,4 +1,0 @@
-﻿id,achievement,activity_bg,activity_name,attack_number,boss_difficulty,boss_name,cost,last_times,max_march_time,open_times,quickBtnIcon,tabIcon,unit_id
-1,206,bg_shilaimu|bg_S1_Boss02,activity_name_280,5,"0|51001,1|51001,2|51002,3|51003,6|51004,10|51005,15|51006,22|51007,31|51008,43|51009,60|51010",activity_name_280,-1,7200,30,3|9|15|21,func_30,Activity_101,71021
-2,207,bg_wutou|bg_S1_Boss01,activity_name_281,5,"0|52001,1|52001,2|52002,3|52003,6|52004,10|52005,15|52006,22|52007,31|52008,43|52009,60|52010",activity_name_281,-1,7200,30,3|9|15|21,func_36,Activity_150,71023
-3,208,bg_shanmao|bg_S1_Boss03,activity_name_282,5,"0|53001,1|53001,2|53002,3|53003,6|53004,10|53005,15|53006,22|53007,31|53008,43|53009,60|53010",activity_name_282,-1,7200,30,3|9|15|21,func_37,Activity_149,71022

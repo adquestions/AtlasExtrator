@@ -1,5 +1,0 @@
-﻿id,desc,function,go_target,goTargetArr,icon,name,scene,show_bp,show_recharge,show_weeklypass,task_guide,type
-1,stronger_desc_3,202,[202],[202],Defeat_shouchong_2,function_name_202,-1,0,10000,0,12,2
-2,stronger_desc_3,202,[202],[202],Defeat_shouchong_2,function_name_202,-1,0,10001,0,12,2
-101,,103,[103],[103],Defeat_shengji,UI_Combat_013,-1,0,0,0,12,1
-102,,115,[115],[115],Defeat_recruit,UI_Combat_012,-1,0,0,0,12,1
