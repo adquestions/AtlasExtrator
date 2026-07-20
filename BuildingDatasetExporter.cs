@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -96,12 +96,10 @@ namespace AtlasExtractor
                             localization,
                             Get(building, "des")),
 
-                    CurrentLevel =
-                        targetLevel > 0
-                            ? targetLevel - 1
-                            : targetLevel,
+                    CurrentLevel = targetLevel,
 
-                    TargetLevel = targetLevel,
+                    TargetLevel =
+                        targetLevel + 1,
 
                     BuildTimeSeconds =
                         ParseLong(
@@ -205,12 +203,12 @@ namespace AtlasExtractor
              * Cost format:
              * category | resource ID | amount
              */
-             result.ResourceId =
-             parts[1].Trim().Trim('[', ']');
+            result.ResourceId =
+            parts[1].Trim().Trim('[', ']');
 
-             result.Amount =
-             ParseDouble(
-             parts[2].Trim().Trim('[', ']'));
+            result.Amount =
+            ParseDouble(
+            parts[2].Trim().Trim('[', ']'));
 
             Dictionary<string, string> good;
 
