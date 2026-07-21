@@ -157,6 +157,20 @@ namespace AtlasExtractor
 
                     Console.WriteLine(ex);
                     }
+                    try
+                    {
+                    GearDatasetExporter.Export(
+                    outputFolder);
+                    }
+                    catch (Exception ex)
+                    {
+                    Console.WriteLine();
+                    Console.WriteLine(
+                    "Gear dataset export failed:");
+
+                    Console.WriteLine(ex);
+                    }
+                    Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine("EXPORT COMPLETE");
                     Console.WriteLine("========================================");
