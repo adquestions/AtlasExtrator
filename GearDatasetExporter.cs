@@ -28,10 +28,15 @@ namespace AtlasExtractor
                 outputFolder,
                 "localization_en.csv");
 
+            string suitGroupPath = Path.Combine(
+                outputFolder,
+                "equipment_suit_group.csv");
+
             RequireFile(starUpPath);
             RequireFile(breakPath);
             RequireFile(equipmentPath);
             RequireFile(localizationPath);
+            RequireFile(suitGroupPath);
 
             List<Dictionary<string, string>> rows =
                 ReadCsv(starUpPath);
@@ -107,6 +112,19 @@ namespace AtlasExtractor
                 piecesOutputPath,
                 pieceRecords);
 
+            List<CurrentGearSetBonusRecord> setBonusRecords =
+                BuildCurrentGearSetBonuses(
+                    suitGroupPath,
+                    localizationPath);
+
+            string setBonusesOutputPath = Path.Combine(
+                outputFolder,
+                "current_gear_set_bonuses.csv");
+
+            WriteCurrentGearSetBonuses(
+                setBonusesOutputPath,
+                setBonusRecords);
+
             Console.WriteLine();
             Console.WriteLine(
                 "Current gear level costs");
@@ -146,12 +164,142 @@ namespace AtlasExtractor
                 "Gear pieces CSV: " +
                 piecesOutputPath);
 
+            Console.WriteLine(
+                "Set bonus rows exported: " +
+                setBonusRecords.Count.ToString("N0"));
+
+            Console.WriteLine(
+                "Set bonuses CSV: " +
+                setBonusesOutputPath);
+
             return records.Count +
                    breakRecords.Count +
                    totalRecords.Count +
-                   pieceRecords.Count;
+                   pieceRecords.Count +
+                   setBonusRecords.Count;
         }
 
+        private static List<CurrentGearSetBonusRecord>
+            BuildCurrentGearSetBonuses(
+                string suitGroupPath,
+                string localizationPath)
+        {
+            Dictionary<string, string> localization =
+                ReadCsv(localizationPath)
+                    .Where(row =>
+                        !string.IsNullOrWhiteSpace(
+                            Get(row, "key")))
+                    .GroupBy(row =>
+                        Get(row, "key"))
+                    .ToDictionary(
+                        group => group.Key,
+                        group => Get(
+                            group.First(),
+                            "value"),
+                        StringComparer.OrdinalIgnoreCase);
+
+            var setNames =
+                new Dictionary<string, string>
+                {
+                    { "1101", "Titan's Might" },
+                    { "1102", "Fury of Blood" },
+                    { "1103", "Glory of the Knight" }
+                };
+
+            return ReadCsv(suitGroupPath)
+                .Where(row =>
+                    setNames.ContainsKey(
+                        Get(row, "group_id")))
+                .Select(row =>
+                {
+                    string suitId =
+                        Get(row, "group_id");
+
+                    int tier =
+                        ParseInt(
+                            Get(row, "Priority"));
+
+                    string descriptionKey =
+                        "equipment_suit_desc_" +
+                        suitId +
+                        "_" +
+                        tier.ToString(
+                            CultureInfo.InvariantCulture);
+
+                    string description;
+
+                    if (!localization.TryGetValue(
+                        descriptionKey,
+                        out description))
+                    {
+                        description = descriptionKey;
+                    }
+
+                    return new CurrentGearSetBonusRecord
+                    {
+                        SuitId = ParseInt(suitId),
+
+                        SetName = setNames[suitId],
+
+                        Tier = tier,
+
+                        RequiredGearLevel =
+                            ParseInt(
+                                Get(row, "star_up")),
+
+                        RequiredBreakLevel =
+                            ParseInt(
+                                Get(row, "break_lv")),
+
+                        Description = description
+                    };
+                })
+                .OrderBy(record => record.SuitId)
+                .ThenBy(record => record.Tier)
+                .ToList();
+        }
+        private static void WriteCurrentGearSetBonuses(
+            string outputPath,
+            IEnumerable<CurrentGearSetBonusRecord> records)
+        {
+            var encoding =
+                new UTF8Encoding(true);
+
+            using (var writer = new StreamWriter(
+                outputPath,
+                false,
+                encoding))
+            {
+                writer.WriteLine(
+                    "SuitId," +
+                    "SetName," +
+                    "Tier," +
+                    "RequiredGearLevel," +
+                    "RequiredBreakLevel," +
+                    "Description");
+
+                foreach (CurrentGearSetBonusRecord record
+                    in records)
+                {
+                    writer.WriteLine(
+                        record.SuitId.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        EscapeCsv(record.SetName) +
+                        "," +
+                        record.Tier.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.RequiredGearLevel.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.RequiredBreakLevel.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        EscapeCsv(record.Description));
+                }
+            }
+        }
         private static List<CurrentGearPieceRecord>
             BuildCurrentGearPieces(
                 string equipmentPath,
@@ -782,6 +930,20 @@ namespace AtlasExtractor
             }
         }
 
+        private sealed class CurrentGearSetBonusRecord
+        {
+            public int SuitId { get; set; }
+
+            public string SetName { get; set; }
+
+            public int Tier { get; set; }
+
+            public int RequiredGearLevel { get; set; }
+
+            public int RequiredBreakLevel { get; set; }
+
+            public string Description { get; set; }
+        }
         private sealed class CurrentGearPieceRecord
         {
             public int Id { get; set; }
@@ -854,6 +1016,12 @@ namespace AtlasExtractor
         }
     }
 }
+
+
+
+
+
+
 
 
 
