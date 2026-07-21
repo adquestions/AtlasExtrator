@@ -144,6 +144,8 @@ namespace AtlasExtractor
                 records.Add(record);
             }
 
+            AddCalculatedRubyCosts(records);
+
             records = records
                 .OrderBy(record =>
                     ParseInt(record.BuildingId))
@@ -228,6 +230,104 @@ namespace AtlasExtractor
             return result;
         }
 
+        private static void AddCalculatedRubyCosts(
+            IList<BuildingUpgradeRecord> records)
+        {
+            const string rubyResourceId = "6";
+
+            foreach (IGrouping<string, BuildingUpgradeRecord> group
+                in records.GroupBy(record => record.BuildingId))
+            {
+                BuildingUpgradeRecord ratioSource = group
+                    .Where(record =>
+                        record.Resource3.ResourceId ==
+                            rubyResourceId &&
+                        record.Resource3.Amount > 0D)
+                    .OrderByDescending(record =>
+                        record.CurrentLevel)
+                    .FirstOrDefault();
+
+                if (ratioSource == null)
+                {
+                    continue;
+                }
+
+                ResourceCost historicalMainResource =
+                    ratioSource.Resource1.ResourceId == "4" ||
+                    ratioSource.Resource1.ResourceId == "5"
+                        ? ratioSource.Resource1
+                        : ratioSource.Resource2;
+
+                if (historicalMainResource.Amount <= 0D)
+                {
+                    continue;
+                }
+
+                double rubyRatio =
+                    ratioSource.Resource3.Amount /
+                    historicalMainResource.Amount;
+
+                foreach (BuildingUpgradeRecord record in group)
+                {
+                    if (record.Resource1.ResourceId ==
+                            rubyResourceId ||
+                        record.Resource2.ResourceId ==
+                            rubyResourceId ||
+                        record.Resource3.ResourceId ==
+                            rubyResourceId)
+                    {
+                        continue;
+                    }
+
+                    double timberAmount =
+                        GetResourceAmount(record, "4");
+
+                    double stoneAmount =
+                        GetResourceAmount(record, "5");
+
+                    if (timberAmount <= 0D ||
+                        stoneAmount <= 0D)
+                    {
+                        continue;
+                    }
+
+                    record.Resource4.ResourceId =
+                        rubyResourceId;
+
+                    record.Resource4.ResourceName =
+                        ratioSource.Resource3.ResourceName;
+
+                    record.Resource4.ResourceNameKey =
+                        ratioSource.Resource3.ResourceNameKey;
+
+                    record.Resource4.Amount =
+                        (timberAmount + stoneAmount) *
+                        rubyRatio;
+
+                    record.Resource4.RawValue =
+                        "[999|6|" +
+                        FormatNumber(record.Resource4.Amount) +
+                        "]";
+                }
+            }
+        }
+
+        private static double GetResourceAmount(
+            BuildingUpgradeRecord record,
+            string resourceId)
+        {
+            ResourceCost[] resources =
+            {
+                record.Resource1,
+                record.Resource2,
+                record.Resource3
+            };
+
+            return resources
+                .Where(resource =>
+                    resource.ResourceId == resourceId)
+                .Sum(resource => resource.Amount);
+        }
         private static void WriteCsv(
             string outputPath,
             IEnumerable<BuildingUpgradeRecord> records)
@@ -262,6 +362,9 @@ namespace AtlasExtractor
                     "resource_3_id," +
                     "resource_3_name," +
                     "resource_3_amount," +
+                    "resource_4_id," +
+                    "resource_4_name," +
+                    "resource_4_amount," +
                     "model");
 
                 foreach (BuildingUpgradeRecord record
@@ -299,6 +402,10 @@ namespace AtlasExtractor
                         record.Resource3.ResourceName,
                         FormatNumber(
                             record.Resource3.Amount),
+                        record.Resource4.ResourceId,
+                        record.Resource4.ResourceName,
+                        FormatNumber(
+                            record.Resource4.Amount),
                         record.Model
                     };
 
@@ -403,6 +510,12 @@ namespace AtlasExtractor
                         writer,
                         "resource_3",
                         record.Resource3,
+                        true);
+
+                    WriteJsonResource(
+                        writer,
+                        "resource_4",
+                        record.Resource4,
                         true);
 
                     WriteJsonString(
@@ -845,6 +958,9 @@ namespace AtlasExtractor
 
             public ResourceCost Resource3 =
                 new ResourceCost();
+
+            public ResourceCost Resource4 =
+                new ResourceCost();
         }
 
         private sealed class ResourceCost
@@ -857,3 +973,8 @@ namespace AtlasExtractor
         }
     }
 }
+
+
+
+
+
