@@ -360,6 +360,28 @@ namespace AtlasExtractor
                         localizedName = nameKey;
                     }
 
+                    Dictionary<int, int> attributes =
+                        ParseAttributes(
+                            Get(row, "attr"));
+
+                    int specialAttributeId =
+                        attributes.Keys
+                            .Where(id =>
+                                id != 65 &&
+                                id != 66 &&
+                                id != 165 &&
+                                id != 166)
+                            .FirstOrDefault();
+
+                    var specialAttributeNames =
+                        new Dictionary<int, string>
+                        {
+                            { 8, "Crit Rate" },
+                            { 10, "Crit Damage" },
+                            { 16, "Block" },
+                            { 26, "Normal ATK DMG RED" }
+                        };
+
                     return new CurrentGearPieceRecord
                     {
                         Id = ParseInt(
@@ -379,6 +401,44 @@ namespace AtlasExtractor
                         SlotName = slotNames.ContainsKey(type)
                             ? slotNames[type]
                             : type,
+
+                        GearAttack =
+                            attributes.ContainsKey(65)
+                                ? attributes[65]
+                                : 0,
+
+                        GearHp =
+                            attributes.ContainsKey(66)
+                                ? attributes[66]
+                                : 0,
+
+                        GearAttackPercent =
+                            attributes.ContainsKey(165)
+                                ? attributes[165]
+                                : 0,
+
+                        GearHpPercent =
+                            attributes.ContainsKey(166)
+                                ? attributes[166]
+                                : 0,
+
+                        SpecialAttributeId =
+                            specialAttributeId,
+
+                        SpecialAttributeValue =
+                            specialAttributeId != 0 &&
+                            attributes.ContainsKey(
+                                specialAttributeId)
+                                ? attributes[
+                                    specialAttributeId]
+                                : 0,
+
+                        SpecialAttributeName =
+                            specialAttributeNames.ContainsKey(
+                                specialAttributeId)
+                                ? specialAttributeNames[
+                                    specialAttributeId]
+                                : string.Empty,
 
                         BaseAttributes =
                             Get(row, "attr"),
@@ -411,6 +471,13 @@ namespace AtlasExtractor
                     "SlotName," +
                     "Quality," +
                     "Name," +
+                    "GearAttack," +
+                    "GearHp," +
+                    "GearAttackPercent," +
+                    "GearHpPercent," +
+                    "SpecialAttributeId," +
+                    "SpecialAttributeName," +
+                    "SpecialAttributeValue," +
                     "BaseAttributes," +
                     "BasePower");
 
@@ -435,6 +502,27 @@ namespace AtlasExtractor
                             CultureInfo.InvariantCulture) +
                         "," +
                         EscapeCsv(record.Name) +
+                        "," +
+                        record.GearAttack.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.GearHp.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.GearAttackPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.GearHpPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.SpecialAttributeId.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        EscapeCsv(
+                            record.SpecialAttributeName) +
+                        "," +
+                        record.SpecialAttributeValue.ToString(
+                            CultureInfo.InvariantCulture) +
                         "," +
                         EscapeCsv(record.BaseAttributes) +
                         "," +
@@ -659,6 +747,35 @@ namespace AtlasExtractor
                             CultureInfo.InvariantCulture));
                 }
             }
+        }
+        private static Dictionary<int, int>
+            ParseAttributes(string value)
+        {
+            var attributes =
+                new Dictionary<int, int>();
+
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return attributes;
+            }
+
+            MatchCollection matches =
+                Regex.Matches(
+                    value,
+                    @"(\d+)\|(-?\d+)");
+
+            foreach (Match match in matches)
+            {
+                int attributeId =
+                    ParseInt(match.Groups[1].Value);
+
+                int amount =
+                    ParseInt(match.Groups[2].Value);
+
+                attributes[attributeId] = amount;
+            }
+
+            return attributes;
         }
         private static int ParseItemAmount(
             string value,
@@ -960,6 +1077,20 @@ namespace AtlasExtractor
 
             public string SlotName { get; set; }
 
+            public int GearAttack { get; set; }
+
+            public int GearHp { get; set; }
+
+            public int GearAttackPercent { get; set; }
+
+            public int GearHpPercent { get; set; }
+
+            public int SpecialAttributeId { get; set; }
+
+            public int SpecialAttributeValue { get; set; }
+
+            public string SpecialAttributeName { get; set; }
+
             public string BaseAttributes { get; set; }
 
             public string BasePower { get; set; }
@@ -1016,6 +1147,10 @@ namespace AtlasExtractor
         }
     }
 }
+
+
+
+
 
 
 
