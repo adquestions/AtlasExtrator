@@ -20,8 +20,18 @@ namespace AtlasExtractor
                 outputFolder,
                 "equipment_break.csv");
 
+            string equipmentPath = Path.Combine(
+                outputFolder,
+                "equipment_new.csv");
+
+            string localizationPath = Path.Combine(
+                outputFolder,
+                "localization_en.csv");
+
             RequireFile(starUpPath);
             RequireFile(breakPath);
+            RequireFile(equipmentPath);
+            RequireFile(localizationPath);
 
             List<Dictionary<string, string>> rows =
                 ReadCsv(starUpPath);
@@ -84,6 +94,19 @@ namespace AtlasExtractor
                 totalsOutputPath,
                 totalRecords);
 
+            List<CurrentGearPieceRecord> pieceRecords =
+                BuildCurrentGearPieces(
+                    equipmentPath,
+                    localizationPath);
+
+            string piecesOutputPath = Path.Combine(
+                outputFolder,
+                "current_gear_pieces.csv");
+
+            WriteCurrentGearPieces(
+                piecesOutputPath,
+                pieceRecords);
+
             Console.WriteLine();
             Console.WriteLine(
                 "Current gear level costs");
@@ -115,11 +138,162 @@ namespace AtlasExtractor
                 "Totals CSV: " +
                 totalsOutputPath);
 
+            Console.WriteLine(
+                "Gear pieces exported: " +
+                pieceRecords.Count.ToString("N0"));
+
+            Console.WriteLine(
+                "Gear pieces CSV: " +
+                piecesOutputPath);
+
             return records.Count +
                    breakRecords.Count +
-                   totalRecords.Count;
+                   totalRecords.Count +
+                   pieceRecords.Count;
         }
 
+        private static List<CurrentGearPieceRecord>
+            BuildCurrentGearPieces(
+                string equipmentPath,
+                string localizationPath)
+        {
+            Dictionary<string, string> localization =
+                ReadCsv(localizationPath)
+                    .Where(row =>
+                        !string.IsNullOrWhiteSpace(
+                            Get(row, "key")))
+                    .GroupBy(row =>
+                        Get(row, "key"))
+                    .ToDictionary(
+                        group => group.Key,
+                        group => Get(
+                            group.First(),
+                            "value"),
+                        StringComparer.OrdinalIgnoreCase);
+
+            var setNames =
+                new Dictionary<string, string>
+                {
+                    { "1101", "Titan's Might" },
+                    { "1102", "Fury of Blood" },
+                    { "1103", "Glory of the Knight" }
+                };
+
+            var slotNames =
+                new Dictionary<string, string>
+                {
+                    { "1", "Weapon" },
+                    { "2", "Armor" },
+                    { "3", "Boots" },
+                    { "4", "Helm" }
+                };
+
+            return ReadCsv(equipmentPath)
+                .Where(row =>
+                    setNames.ContainsKey(
+                        Get(row, "suit_id")))
+                .Select(row =>
+                {
+                    string nameKey =
+                        Get(row, "name");
+
+                    string suitId =
+                        Get(row, "suit_id");
+
+                    string type =
+                        Get(row, "type");
+
+                    string localizedName;
+
+                    if (!localization.TryGetValue(
+                        nameKey,
+                        out localizedName))
+                    {
+                        localizedName = nameKey;
+                    }
+
+                    return new CurrentGearPieceRecord
+                    {
+                        Id = ParseInt(
+                            Get(row, "id")),
+
+                        SuitId = ParseInt(suitId),
+
+                        Type = ParseInt(type),
+
+                        Quality = ParseInt(
+                            Get(row, "quality")),
+
+                        Name = localizedName,
+
+                        SetName = setNames[suitId],
+
+                        SlotName = slotNames.ContainsKey(type)
+                            ? slotNames[type]
+                            : type,
+
+                        BaseAttributes =
+                            Get(row, "attr"),
+
+                        BasePower =
+                            Get(row, "basePowers")
+                    };
+                })
+                .OrderBy(record => record.SuitId)
+                .ThenBy(record => record.Type)
+                .ToList();
+        }
+        private static void WriteCurrentGearPieces(
+            string outputPath,
+            IEnumerable<CurrentGearPieceRecord> records)
+        {
+            var encoding =
+                new UTF8Encoding(true);
+
+            using (var writer = new StreamWriter(
+                outputPath,
+                false,
+                encoding))
+            {
+                writer.WriteLine(
+                    "Id," +
+                    "SuitId," +
+                    "SetName," +
+                    "Type," +
+                    "SlotName," +
+                    "Quality," +
+                    "Name," +
+                    "BaseAttributes," +
+                    "BasePower");
+
+                foreach (CurrentGearPieceRecord record
+                    in records)
+                {
+                    writer.WriteLine(
+                        record.Id.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.SuitId.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        EscapeCsv(record.SetName) +
+                        "," +
+                        record.Type.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        EscapeCsv(record.SlotName) +
+                        "," +
+                        record.Quality.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        EscapeCsv(record.Name) +
+                        "," +
+                        EscapeCsv(record.BaseAttributes) +
+                        "," +
+                        EscapeCsv(record.BasePower));
+                }
+            }
+        }
         private static List<GearUpgradeTotalRecord>
             BuildUpgradeTotals(
                 IEnumerable<GearLevelCostRecord> levelRecords,
@@ -608,6 +782,26 @@ namespace AtlasExtractor
             }
         }
 
+        private sealed class CurrentGearPieceRecord
+        {
+            public int Id { get; set; }
+
+            public int SuitId { get; set; }
+
+            public int Type { get; set; }
+
+            public int Quality { get; set; }
+
+            public string Name { get; set; }
+
+            public string SetName { get; set; }
+
+            public string SlotName { get; set; }
+
+            public string BaseAttributes { get; set; }
+
+            public string BasePower { get; set; }
+        }
         private sealed class GearUpgradeTotalRecord
         {
             public string Scope { get; set; }
@@ -660,6 +854,12 @@ namespace AtlasExtractor
         }
     }
 }
+
+
+
+
+
+
 
 
 
