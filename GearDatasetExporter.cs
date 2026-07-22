@@ -352,6 +352,22 @@ namespace AtlasExtractor
                             group => group.First(),
                             StringComparer.OrdinalIgnoreCase);
 
+            Dictionary<string, Dictionary<string, string>>
+                break25Rows =
+                    ReadCsv(
+                        Path.Combine(
+                            Path.GetDirectoryName(
+                                equipmentPath),
+                            "equipment_break.csv"))
+                        .Where(row =>
+                            Get(row, "lv") == "25")
+                        .GroupBy(row =>
+                            Get(row, "model_id"))
+                        .ToDictionary(
+                            group => group.Key,
+                            group => group.First(),
+                            StringComparer.OrdinalIgnoreCase);
+
             return ReadCsv(equipmentPath)
                 .Where(row =>
                     setNames.ContainsKey(
@@ -388,6 +404,17 @@ namespace AtlasExtractor
                             ? ParseAttributes(
                                 Get(
                                     level40Row,
+                                    "attribute"))
+                            : new Dictionary<int, int>();
+
+                    Dictionary<string, string> break25Row;
+                    Dictionary<int, int> break25Attributes =
+                        break25Rows.TryGetValue(
+                            Get(row, "id"),
+                            out break25Row)
+                            ? ParseAttributes(
+                                Get(
+                                    break25Row,
                                     "attribute"))
                             : new Dictionary<int, int>();
 
@@ -495,6 +522,34 @@ namespace AtlasExtractor
                                     specialAttributeId]
                                 : 0,
 
+                        Break25GearAttack =
+                            break25Attributes.ContainsKey(65)
+                                ? break25Attributes[65]
+                                : 0,
+
+                        Break25GearHp =
+                            break25Attributes.ContainsKey(66)
+                                ? break25Attributes[66]
+                                : 0,
+
+                        Break25GearAttackPercent =
+                            break25Attributes.ContainsKey(165)
+                                ? break25Attributes[165]
+                                : 0,
+
+                        Break25GearHpPercent =
+                            break25Attributes.ContainsKey(166)
+                                ? break25Attributes[166]
+                                : 0,
+
+                        Break25SpecialAttributeValue =
+                            specialAttributeId != 0 &&
+                            break25Attributes.ContainsKey(
+                                specialAttributeId)
+                                ? break25Attributes[
+                                    specialAttributeId]
+                                : 0,
+
                         BaseAttributes =
                             Get(row, "attr"),
 
@@ -538,6 +593,11 @@ namespace AtlasExtractor
                     "Level40GearAttackPercent," +
                     "Level40GearHpPercent," +
                     "Level40SpecialAttributeValue," +
+                    "Break25GearAttack," +
+                    "Break25GearHp," +
+                    "Break25GearAttackPercent," +
+                    "Break25GearHpPercent," +
+                    "Break25SpecialAttributeValue," +
                     "BaseAttributes," +
                     "BasePower");
 
@@ -597,6 +657,21 @@ namespace AtlasExtractor
                             CultureInfo.InvariantCulture) +
                         "," +
                         record.Level40SpecialAttributeValue.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25GearAttack.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25GearHp.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25GearAttackPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25GearHpPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25SpecialAttributeValue.ToString(
                             CultureInfo.InvariantCulture) +
                         "," +
                         EscapeCsv(record.BaseAttributes) +
@@ -1176,6 +1251,16 @@ namespace AtlasExtractor
 
             public int Level40SpecialAttributeValue { get; set; }
 
+            public int Break25GearAttack { get; set; }
+
+            public int Break25GearHp { get; set; }
+
+            public int Break25GearAttackPercent { get; set; }
+
+            public int Break25GearHpPercent { get; set; }
+
+            public int Break25SpecialAttributeValue { get; set; }
+
             public string BaseAttributes { get; set; }
 
             public string BasePower { get; set; }
@@ -1232,6 +1317,11 @@ namespace AtlasExtractor
         }
     }
 }
+
+
+
+
+
 
 
 
