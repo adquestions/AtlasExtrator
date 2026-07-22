@@ -336,6 +336,22 @@ namespace AtlasExtractor
                     { "4", "Helm" }
                 };
 
+            Dictionary<string, Dictionary<string, string>>
+                level40Rows =
+                    ReadCsv(
+                        Path.Combine(
+                            Path.GetDirectoryName(
+                                equipmentPath),
+                            "equipment_star_up.csv"))
+                        .Where(row =>
+                            Get(row, "star") == "40")
+                        .GroupBy(row =>
+                            Get(row, "model_id"))
+                        .ToDictionary(
+                            group => group.Key,
+                            group => group.First(),
+                            StringComparer.OrdinalIgnoreCase);
+
             return ReadCsv(equipmentPath)
                 .Where(row =>
                     setNames.ContainsKey(
@@ -363,6 +379,17 @@ namespace AtlasExtractor
                     Dictionary<int, int> attributes =
                         ParseAttributes(
                             Get(row, "attr"));
+
+                    Dictionary<string, string> level40Row;
+                    Dictionary<int, int> level40Attributes =
+                        level40Rows.TryGetValue(
+                            Get(row, "id"),
+                            out level40Row)
+                            ? ParseAttributes(
+                                Get(
+                                    level40Row,
+                                    "attribute"))
+                            : new Dictionary<int, int>();
 
                     int specialAttributeId =
                         attributes.Keys
@@ -440,6 +467,34 @@ namespace AtlasExtractor
                                     specialAttributeId]
                                 : string.Empty,
 
+                        Level40GearAttack =
+                            level40Attributes.ContainsKey(65)
+                                ? level40Attributes[65]
+                                : 0,
+
+                        Level40GearHp =
+                            level40Attributes.ContainsKey(66)
+                                ? level40Attributes[66]
+                                : 0,
+
+                        Level40GearAttackPercent =
+                            level40Attributes.ContainsKey(165)
+                                ? level40Attributes[165]
+                                : 0,
+
+                        Level40GearHpPercent =
+                            level40Attributes.ContainsKey(166)
+                                ? level40Attributes[166]
+                                : 0,
+
+                        Level40SpecialAttributeValue =
+                            specialAttributeId != 0 &&
+                            level40Attributes.ContainsKey(
+                                specialAttributeId)
+                                ? level40Attributes[
+                                    specialAttributeId]
+                                : 0,
+
                         BaseAttributes =
                             Get(row, "attr"),
 
@@ -478,6 +533,11 @@ namespace AtlasExtractor
                     "SpecialAttributeId," +
                     "SpecialAttributeName," +
                     "SpecialAttributeValue," +
+                    "Level40GearAttack," +
+                    "Level40GearHp," +
+                    "Level40GearAttackPercent," +
+                    "Level40GearHpPercent," +
+                    "Level40SpecialAttributeValue," +
                     "BaseAttributes," +
                     "BasePower");
 
@@ -522,6 +582,21 @@ namespace AtlasExtractor
                             record.SpecialAttributeName) +
                         "," +
                         record.SpecialAttributeValue.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40GearAttack.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40GearHp.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40GearAttackPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40GearHpPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40SpecialAttributeValue.ToString(
                             CultureInfo.InvariantCulture) +
                         "," +
                         EscapeCsv(record.BaseAttributes) +
@@ -1091,6 +1166,16 @@ namespace AtlasExtractor
 
             public string SpecialAttributeName { get; set; }
 
+            public int Level40GearAttack { get; set; }
+
+            public int Level40GearHp { get; set; }
+
+            public int Level40GearAttackPercent { get; set; }
+
+            public int Level40GearHpPercent { get; set; }
+
+            public int Level40SpecialAttributeValue { get; set; }
+
             public string BaseAttributes { get; set; }
 
             public string BasePower { get; set; }
@@ -1147,6 +1232,11 @@ namespace AtlasExtractor
         }
     }
 }
+
+
+
+
+
 
 
 
