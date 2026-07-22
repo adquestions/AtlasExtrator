@@ -16,6 +16,12 @@ namespace AtlasExtractor
             List<Dictionary<string, string>> starRows =
                 ReadDancerStarRows(outputFolder);
 
+            List<Dictionary<string, string>> traitRows =
+                ReadDancerTraitRows(outputFolder);
+
+            List<Dictionary<string, string>> traitProgressionRows =
+                ReadDancerTraitProgressionRows(outputFolder);
+
             Console.WriteLine(
                 "Dancer level rows loaded: " +
                 levelRows.Count);
@@ -23,6 +29,14 @@ namespace AtlasExtractor
             Console.WriteLine(
                 "Dancer star rows loaded: " +
                 starRows.Count);
+
+            Console.WriteLine(
+                "Dancer trait rows loaded: " +
+                traitRows.Count);
+
+            Console.WriteLine(
+                "Dancer trait progression rows loaded: " +
+                traitProgressionRows.Count);
 
             string outputPath = Path.Combine(
                 outputFolder,
@@ -115,6 +129,11 @@ namespace AtlasExtractor
                 WriteStarProgression(
                     writer,
                     starRows);
+                writer.WriteLine(",");
+                WriteTraitProgression(
+                    writer,
+                    traitRows,
+                    traitProgressionRows);
                 writer.WriteLine("}");
             }
 
@@ -128,9 +147,93 @@ namespace AtlasExtractor
             Console.WriteLine(
                 "Star rows exported: " +
                 starRows.Count);
+            Console.WriteLine(
+                "Trait rows exported: " +
+                traitRows.Count);
+            Console.WriteLine(
+                "Trait progression rows exported: " +
+                traitProgressionRows.Count);
             Console.WriteLine("JSON: " + outputPath);
 
             return 4;
+        }
+
+        private static void WriteTraitProgression(
+            StreamWriter writer,
+            List<Dictionary<string, string>> traitRows,
+            List<Dictionary<string, string>> traitProgressionRows)
+        {
+            writer.WriteLine("  \"traits\": [");
+
+            for (int i = 0; i < traitRows.Count; i++)
+            {
+                Dictionary<string, string> trait = traitRows[i];
+                string groupId = GetValue(trait, "talent_group");
+
+                writer.WriteLine("    {");
+                writer.WriteLine(
+                    "      \"slot\": " +
+                    ParseIntValue(trait, "slot") + ",");
+                writer.WriteLine(
+                    "      \"groupId\": " +
+                    ParseIntValue(trait, "talent_group") + ",");
+                writer.WriteLine(
+                    "      \"unlockDiamondCost\": " +
+                    ParsePairAmount(GetValue(trait, "cost")) + ",");
+                writer.WriteLine(
+                    "      \"shardsPerLevel\": " +
+                    ParsePairAmount(GetValue(trait, "upgrade_cost")) + ",");
+                writer.WriteLine("      \"levels\": [");
+
+                List<Dictionary<string, string>> levels =
+                    traitProgressionRows.FindAll(
+                        row => GetValue(row, "group_id") == groupId);
+
+                for (int levelIndex = 0; levelIndex < levels.Count; levelIndex++)
+                {
+                    Dictionary<string, string> level = levels[levelIndex];
+                    string attributeValue = GetValue(level, "hero_attr");
+
+                    if (string.IsNullOrWhiteSpace(attributeValue) || attributeValue == "[]")
+                    {
+                        attributeValue = GetValue(level, "player_attr");
+                    }
+
+                    writer.WriteLine("        {");
+                    writer.WriteLine(
+                        "          \"level\": " +
+                        ParseIntValue(level, "level") + ",");
+                    writer.WriteLine(
+                        "          \"attributeId\": " +
+                        ParsePairId(attributeValue) + ",");
+                    writer.WriteLine(
+                        "          \"attributeValue\": " +
+                        ParsePairAmount(attributeValue) + ",");
+                    writer.WriteLine(
+                        "          \"power\": " +
+                        ParseLongValue(level, "power"));
+                    writer.Write("        }");
+
+                    if (levelIndex < levels.Count - 1)
+                    {
+                        writer.Write(",");
+                    }
+
+                    writer.WriteLine();
+                }
+
+                writer.WriteLine("      ]");
+                writer.Write("    }");
+
+                if (i < traitRows.Count - 1)
+                {
+                    writer.Write(",");
+                }
+
+                writer.WriteLine();
+            }
+
+            writer.WriteLine("  ]");
         }
 
         private static void WriteStarProgression(
@@ -305,6 +408,31 @@ namespace AtlasExtractor
                 : 0L;
         }
 
+        private static int ParsePairId(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return 0;
+            }
+
+            string cleaned = value.Trim('[', ']');
+            string[] parts = cleaned.Split('|');
+
+            if (parts.Length < 2)
+            {
+                return 0;
+            }
+
+            int result;
+
+            return int.TryParse(
+                parts[0],
+                NumberStyles.Integer,
+                CultureInfo.InvariantCulture,
+                out result)
+                    ? result
+                    : 0;
+        }
         private static long ParsePairAmount(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -332,6 +460,81 @@ namespace AtlasExtractor
                     out amount)
                 ? amount
                 : 0L;
+        }
+
+        private static List<Dictionary<string, string>>
+            ReadDancerTraitRows(string outputFolder)
+        {
+            string path = Path.Combine(
+                outputFolder,
+                "hero_talent_new.csv");
+
+            List<Dictionary<string, string>> rows =
+                BuildingDatasetExporter.ReadCsv(path);
+
+            var results = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in rows)
+            {
+                if (GetValue(row, "hero_id") == "10005")
+                {
+                    results.Add(row);
+                }
+            }
+
+            results.Sort(
+                (left, right) =>
+                    ParseIntValue(left, "slot").CompareTo(
+                        ParseIntValue(right, "slot")));
+
+            return results;
+        }
+
+        private static List<Dictionary<string, string>>
+            ReadDancerTraitProgressionRows(string outputFolder)
+        {
+            string path = Path.Combine(
+                outputFolder,
+                "hero_talent_group.csv");
+
+            List<Dictionary<string, string>> rows =
+                BuildingDatasetExporter.ReadCsv(path);
+
+            var allowedGroups = new HashSet<string>
+            {
+                "40101",
+                "40201",
+                "10114",
+                "40301"
+            };
+
+            var results = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in rows)
+            {
+                if (allowedGroups.Contains(GetValue(row, "group_id")))
+                {
+                    results.Add(row);
+                }
+            }
+
+            results.Sort(
+                (left, right) =>
+                {
+                    int groupCompare =
+                        ParseIntValue(left, "group_id").CompareTo(
+                            ParseIntValue(right, "group_id"));
+
+                    if (groupCompare != 0)
+                    {
+                        return groupCompare;
+                    }
+
+                    return ParseIntValue(left, "level").CompareTo(
+                        ParseIntValue(right, "level"));
+                });
+
+            return results;
         }
 
         private static List<Dictionary<string, string>>
@@ -429,6 +632,8 @@ namespace AtlasExtractor
             return dancerRows;
         }    }
 }
+
+
 
 
 
