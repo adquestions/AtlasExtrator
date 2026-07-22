@@ -340,6 +340,22 @@ namespace AtlasExtractor
                                     bonus.SuitId == group.Key.SuitId &&
                                     bonus.Tier == 3)
                                 .Select(bonus => bonus.Description)
+                                .FirstOrDefault(),
+
+                        Level40SetBonusRequiredGearLevel =
+                            bonusRecords
+                                .Where(bonus =>
+                                    bonus.SuitId == group.Key.SuitId &&
+                                    bonus.Tier == 2)
+                                .Select(bonus => bonus.RequiredGearLevel)
+                                .FirstOrDefault(),
+
+                        MythicSetBonusRequiredBreakLevel =
+                            bonusRecords
+                                .Where(bonus =>
+                                    bonus.SuitId == group.Key.SuitId &&
+                                    bonus.Tier == 3)
+                                .Select(bonus => bonus.RequiredBreakLevel)
                                 .FirstOrDefault()
                     })
                 .OrderBy(record =>
@@ -387,7 +403,9 @@ namespace AtlasExtractor
                     "Break25NormalAttackDamageReduction," +
                     "BaseSetBonusDescription," +
                     "Level40SetBonusDescription," +
-                    "MythicSetBonusDescription");
+                    "MythicSetBonusDescription," +
+                    "Level40SetBonusRequiredGearLevel," +
+                    "MythicSetBonusRequiredBreakLevel");
 
                 foreach (CurrentGearSetSummaryRecord record
                     in records)
@@ -474,7 +492,13 @@ namespace AtlasExtractor
                         "," +
                         EscapeCsv(record.Level40SetBonusDescription) +
                         "," +
-                        EscapeCsv(record.MythicSetBonusDescription));
+                        EscapeCsv(record.MythicSetBonusDescription) +
+                        "," +
+                        record.Level40SetBonusRequiredGearLevel.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicSetBonusRequiredBreakLevel.ToString(
+                            CultureInfo.InvariantCulture));
                 }
             }
         }
@@ -1555,6 +1579,10 @@ namespace AtlasExtractor
             public string Level40SetBonusDescription { get; set; }
 
             public string MythicSetBonusDescription { get; set; }
+
+            public int Level40SetBonusRequiredGearLevel { get; set; }
+
+            public int MythicSetBonusRequiredBreakLevel { get; set; }
         }
         private sealed class CurrentGearSetBonusRecord
         {
