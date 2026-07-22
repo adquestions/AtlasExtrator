@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 
@@ -8,6 +10,13 @@ namespace AtlasExtractor
     {
         public static int Export(string outputFolder)
         {
+            List<Dictionary<string, string>> levelRows =
+                ReadDancerLevelRows(outputFolder);
+
+            Console.WriteLine(
+                "Dancer level rows loaded: " +
+                levelRows.Count);
+
             string outputPath = Path.Combine(
                 outputFolder,
                 "dancer_skills.json");
@@ -91,17 +100,209 @@ namespace AtlasExtractor
                 writer.WriteLine("      \"maximumValue\": 20.0");
                 writer.WriteLine("    }");
 
-                writer.WriteLine("  ]");
+                writer.WriteLine("  ],");
+                WriteLevelProgression(
+                    writer,
+                    levelRows);
                 writer.WriteLine("}");
             }
 
             Console.WriteLine();
-            Console.WriteLine("Dancer skills");
+            Console.WriteLine("Dancer dataset");
             Console.WriteLine("------------------------------");
             Console.WriteLine("Skills exported: 4");
+            Console.WriteLine(
+                "Level rows exported: " +
+                levelRows.Count);
             Console.WriteLine("JSON: " + outputPath);
 
             return 4;
         }
-    }
+
+        private static void WriteLevelProgression(
+            StreamWriter writer,
+            List<Dictionary<string, string>> levelRows)
+        {
+            writer.WriteLine("  \"levelProgression\": [");
+
+            for (int index = 0;
+                 index < levelRows.Count;
+                 index++)
+            {
+                Dictionary<string, string> row =
+                    levelRows[index];
+
+                int level = ParseIntValue(row, "level");
+                long meatCost = ParseLongValue(row, "exp");
+                int capacity = ParseIntValue(row, "army_count");
+                long attack = ParsePairAmount(
+                    GetValue(row, "attr_1"));
+                long hp = ParsePairAmount(
+                    GetValue(row, "attr_2"));
+                long influence = ParseLongValue(
+                    row,
+                    "fightforce");
+
+                writer.WriteLine("    {");
+                writer.WriteLine(
+                    "      \"level\": " +
+                    level + ",");
+                writer.WriteLine(
+                    "      \"meatCostToNextLevel\": " +
+                    meatCost + ",");
+                writer.WriteLine(
+                    "      \"capacity\": " +
+                    capacity + ",");
+                writer.WriteLine(
+                    "      \"baseAttack\": " +
+                    attack + ",");
+                writer.WriteLine(
+                    "      \"baseHp\": " +
+                    hp + ",");
+                writer.WriteLine(
+                    "      \"baseInfluence\": " +
+                    influence);
+                writer.WriteLine(
+                    index < levelRows.Count - 1
+                        ? "    },"
+                        : "    }");
+            }
+
+            writer.WriteLine("  ]");
+        }
+
+        private static string GetValue(
+            IDictionary<string, string> row,
+            string column)
+        {
+            string value;
+
+            return row != null &&
+                   row.TryGetValue(column, out value)
+                ? value ?? string.Empty
+                : string.Empty;
+        }
+
+        private static int ParseIntValue(
+            IDictionary<string, string> row,
+            string column)
+        {
+            int value;
+
+            return int.TryParse(
+                    GetValue(row, column),
+                    NumberStyles.Integer,
+                    CultureInfo.InvariantCulture,
+                    out value)
+                ? value
+                : 0;
+        }
+
+        private static long ParseLongValue(
+            IDictionary<string, string> row,
+            string column)
+        {
+            long value;
+
+            return long.TryParse(
+                    GetValue(row, column),
+                    NumberStyles.Integer,
+                    CultureInfo.InvariantCulture,
+                    out value)
+                ? value
+                : 0L;
+        }
+
+        private static long ParsePairAmount(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return 0L;
+            }
+
+            int separator = value.LastIndexOf('|');
+            int end = value.LastIndexOf(']');
+
+            if (separator < 0 ||
+                end <= separator)
+            {
+                return 0L;
+            }
+
+            long amount;
+
+            return long.TryParse(
+                    value.Substring(
+                        separator + 1,
+                        end - separator - 1),
+                    NumberStyles.Integer,
+                    CultureInfo.InvariantCulture,
+                    out amount)
+                ? amount
+                : 0L;
+        }
+
+        private static List<Dictionary<string, string>>
+            ReadDancerLevelRows(string outputFolder)
+        {
+            string path = Path.Combine(
+                outputFolder,
+                "hero_level.csv");
+
+            List<Dictionary<string, string>> allRows =
+                BuildingDatasetExporter.ReadCsv(path);
+
+            var dancerRows =
+                new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in allRows)
+            {
+                string quality;
+                string mainAttribute;
+
+                row.TryGetValue("quality", out quality);
+                row.TryGetValue(
+                    "mainAttribute",
+                    out mainAttribute);
+
+                if (quality == "5" &&
+                    mainAttribute == "1")
+                {
+                    dancerRows.Add(row);
+                }
+            }
+
+            dancerRows.Sort(
+                delegate(
+                    Dictionary<string, string> left,
+                    Dictionary<string, string> right)
+                {
+                    int leftLevel;
+                    int rightLevel;
+
+                    int.TryParse(
+                        left["level"],
+                        NumberStyles.Integer,
+                        CultureInfo.InvariantCulture,
+                        out leftLevel);
+
+                    int.TryParse(
+                        right["level"],
+                        NumberStyles.Integer,
+                        CultureInfo.InvariantCulture,
+                        out rightLevel);
+
+                    return leftLevel.CompareTo(rightLevel);
+                });
+
+            return dancerRows;
+        }    }
 }
+
+
+
+
+
+
+
+

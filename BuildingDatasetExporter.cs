@@ -626,7 +626,7 @@ namespace AtlasExtractor
                 : key;
         }
 
-        private static List<Dictionary<string, string>>
+        internal static List<Dictionary<string, string>>
             ReadCsv(string path)
         {
             var rows =
@@ -973,6 +973,7 @@ namespace AtlasExtractor
         }
     }
 }
+
 
 
 
