@@ -172,6 +172,20 @@ namespace AtlasExtractor
                     }
                     Console.WriteLine();
                     Console.WriteLine();
+                    try
+                    {
+                    DancerSkillDatasetExporter.Export(
+                    outputFolder);
+                    }
+                    catch (Exception ex)
+                    {
+                    Console.WriteLine();
+                    Console.WriteLine(
+                    "Dancer skill dataset export failed:");
+
+                    Console.WriteLine(ex);
+                    }
+                    Console.WriteLine();
                     Console.WriteLine("EXPORT COMPLETE");
                     Console.WriteLine("========================================");
                     Console.WriteLine(
