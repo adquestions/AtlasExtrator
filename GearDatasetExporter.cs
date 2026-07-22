@@ -112,6 +112,18 @@ namespace AtlasExtractor
                 piecesOutputPath,
                 pieceRecords);
 
+            List<CurrentGearSetSummaryRecord> setSummaryRecords =
+                BuildCurrentGearSetSummaries(
+                    pieceRecords);
+
+            string setSummaryOutputPath = Path.Combine(
+                outputFolder,
+                "current_gear_set_summaries.csv");
+
+            WriteCurrentGearSetSummaries(
+                setSummaryOutputPath,
+                setSummaryRecords);
+
             List<CurrentGearSetBonusRecord> setBonusRecords =
                 BuildCurrentGearSetBonuses(
                     suitGroupPath,
@@ -165,6 +177,14 @@ namespace AtlasExtractor
                 piecesOutputPath);
 
             Console.WriteLine(
+                "Set summary rows exported: " +
+                setSummaryRecords.Count.ToString("N0"));
+
+            Console.WriteLine(
+                "Set summaries CSV: " +
+                setSummaryOutputPath);
+
+            Console.WriteLine(
                 "Set bonus rows exported: " +
                 setBonusRecords.Count.ToString("N0"));
 
@@ -179,6 +199,151 @@ namespace AtlasExtractor
                    setBonusRecords.Count;
         }
 
+        private static List<CurrentGearSetSummaryRecord>
+            BuildCurrentGearSetSummaries(
+                IEnumerable<CurrentGearPieceRecord> pieces)
+        {
+            return pieces
+                .GroupBy(piece =>
+                    new
+                    {
+                        piece.SuitId,
+                        piece.SetName
+                    })
+                .Select(group =>
+                    new CurrentGearSetSummaryRecord
+                    {
+                        SuitId = group.Key.SuitId,
+
+                        SetName = group.Key.SetName,
+
+                        BaseGearAttack =
+                            group.Sum(piece =>
+                                piece.GearAttack),
+
+                        BaseGearHp =
+                            group.Sum(piece =>
+                                piece.GearHp),
+
+                        BaseGearAttackPercent =
+                            group.Sum(piece =>
+                                piece.GearAttackPercent),
+
+                        BaseGearHpPercent =
+                            group.Sum(piece =>
+                                piece.GearHpPercent),
+
+                        Level40GearAttack =
+                            group.Sum(piece =>
+                                piece.Level40GearAttack),
+
+                        Level40GearHp =
+                            group.Sum(piece =>
+                                piece.Level40GearHp),
+
+                        Level40GearAttackPercent =
+                            group.Sum(piece =>
+                                piece.Level40GearAttackPercent),
+
+                        Level40GearHpPercent =
+                            group.Sum(piece =>
+                                piece.Level40GearHpPercent),
+
+                        Break25GearAttack =
+                            group.Sum(piece =>
+                                piece.Break25GearAttack),
+
+                        Break25GearHp =
+                            group.Sum(piece =>
+                                piece.Break25GearHp),
+
+                        Break25GearAttackPercent =
+                            group.Sum(piece =>
+                                piece.Break25GearAttackPercent),
+
+                        Break25GearHpPercent =
+                            group.Sum(piece =>
+                                piece.Break25GearHpPercent)
+                    })
+                .OrderBy(record =>
+                    record.SuitId)
+                .ToList();
+        }
+        private static void WriteCurrentGearSetSummaries(
+            string outputPath,
+            IEnumerable<CurrentGearSetSummaryRecord> records)
+        {
+            var encoding =
+                new UTF8Encoding(true);
+
+            using (var writer = new StreamWriter(
+                outputPath,
+                false,
+                encoding))
+            {
+                writer.WriteLine(
+                    "SuitId," +
+                    "SetName," +
+                    "BaseGearAttack," +
+                    "BaseGearHp," +
+                    "BaseGearAttackPercent," +
+                    "BaseGearHpPercent," +
+                    "Level40GearAttack," +
+                    "Level40GearHp," +
+                    "Level40GearAttackPercent," +
+                    "Level40GearHpPercent," +
+                    "Break25GearAttack," +
+                    "Break25GearHp," +
+                    "Break25GearAttackPercent," +
+                    "Break25GearHpPercent");
+
+                foreach (CurrentGearSetSummaryRecord record
+                    in records)
+                {
+                    writer.WriteLine(
+                        record.SuitId.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        EscapeCsv(record.SetName) +
+                        "," +
+                        record.BaseGearAttack.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.BaseGearHp.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.BaseGearAttackPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.BaseGearHpPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40GearAttack.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40GearHp.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40GearAttackPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40GearHpPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25GearAttack.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25GearHp.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25GearAttackPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25GearHpPercent.ToString(
+                            CultureInfo.InvariantCulture));
+                }
+            }
+        }
         private static List<CurrentGearSetBonusRecord>
             BuildCurrentGearSetBonuses(
                 string suitGroupPath,
@@ -1197,6 +1362,36 @@ namespace AtlasExtractor
             }
         }
 
+        private sealed class CurrentGearSetSummaryRecord
+        {
+            public int SuitId { get; set; }
+
+            public string SetName { get; set; }
+
+            public int BaseGearAttack { get; set; }
+
+            public int BaseGearHp { get; set; }
+
+            public int BaseGearAttackPercent { get; set; }
+
+            public int BaseGearHpPercent { get; set; }
+
+            public int Level40GearAttack { get; set; }
+
+            public int Level40GearHp { get; set; }
+
+            public int Level40GearAttackPercent { get; set; }
+
+            public int Level40GearHpPercent { get; set; }
+
+            public int Break25GearAttack { get; set; }
+
+            public int Break25GearHp { get; set; }
+
+            public int Break25GearAttackPercent { get; set; }
+
+            public int Break25GearHpPercent { get; set; }
+        }
         private sealed class CurrentGearSetBonusRecord
         {
             public int SuitId { get; set; }
@@ -1317,6 +1512,11 @@ namespace AtlasExtractor
         }
     }
 }
+
+
+
+
+
 
 
 
