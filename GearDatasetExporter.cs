@@ -130,6 +130,14 @@ namespace AtlasExtractor
                 setSummaryOutputPath,
                 setSummaryRecords);
 
+            string setSummaryJsonOutputPath = Path.Combine(
+                outputFolder,
+                "current_gear_set_summaries.json");
+
+            WriteCurrentGearSetSummariesJson(
+                setSummaryJsonOutputPath,
+                setSummaryRecords);
+
             string setBonusesOutputPath = Path.Combine(
                 outputFolder,
                 "current_gear_set_bonuses.csv");
@@ -184,6 +192,10 @@ namespace AtlasExtractor
             Console.WriteLine(
                 "Set summaries CSV: " +
                 setSummaryOutputPath);
+
+            Console.WriteLine(
+                "Set summaries JSON: " +
+                setSummaryJsonOutputPath);
 
             Console.WriteLine(
                 "Set bonus rows exported: " +
@@ -503,6 +515,78 @@ namespace AtlasExtractor
                 }
             }
         }
+        private static void WriteCurrentGearSetSummariesJson(
+            string outputPath,
+            IEnumerable<CurrentGearSetSummaryRecord> records)
+        {
+            var encoding =
+                new UTF8Encoding(true);
+
+            List<CurrentGearSetSummaryRecord> recordList =
+                records.ToList();
+
+            using (var writer = new StreamWriter(
+                outputPath,
+                false,
+                encoding))
+            {
+                writer.WriteLine("[");
+
+                for (int index = 0;
+                    index < recordList.Count;
+                    index++)
+                {
+                    CurrentGearSetSummaryRecord record =
+                        recordList[index];
+
+                    writer.WriteLine("  {");
+
+                    WriteJsonNumberProperty(writer, "suitId", record.SuitId, true);
+                    WriteJsonStringProperty(writer, "setName", record.SetName, true);
+                    WriteJsonNumberProperty(writer, "baseGearAttack", record.BaseGearAttack, true);
+                    WriteJsonNumberProperty(writer, "baseGearHp", record.BaseGearHp, true);
+                    WriteJsonNumberProperty(writer, "baseGearAttackPercent", record.BaseGearAttackPercent, true);
+                    WriteJsonNumberProperty(writer, "baseGearHpPercent", record.BaseGearHpPercent, true);
+                    WriteJsonNumberProperty(writer, "level40GearAttack", record.Level40GearAttack, true);
+                    WriteJsonNumberProperty(writer, "level40GearHp", record.Level40GearHp, true);
+                    WriteJsonNumberProperty(writer, "level40GearAttackPercent", record.Level40GearAttackPercent, true);
+                    WriteJsonNumberProperty(writer, "level40GearHpPercent", record.Level40GearHpPercent, true);
+                    WriteJsonNumberProperty(writer, "break25GearAttack", record.Break25GearAttack, true);
+                    WriteJsonNumberProperty(writer, "break25GearHp", record.Break25GearHp, true);
+                    WriteJsonNumberProperty(writer, "break25GearAttackPercent", record.Break25GearAttackPercent, true);
+                    WriteJsonNumberProperty(writer, "break25GearHpPercent", record.Break25GearHpPercent, true);
+                    WriteJsonNumberProperty(writer, "baseCritRate", record.BaseCritRate, true);
+                    WriteJsonNumberProperty(writer, "baseCritDamage", record.BaseCritDamage, true);
+                    WriteJsonNumberProperty(writer, "baseBlock", record.BaseBlock, true);
+                    WriteJsonNumberProperty(writer, "baseNormalAttackDamageReduction", record.BaseNormalAttackDamageReduction, true);
+                    WriteJsonNumberProperty(writer, "level40CritRate", record.Level40CritRate, true);
+                    WriteJsonNumberProperty(writer, "level40CritDamage", record.Level40CritDamage, true);
+                    WriteJsonNumberProperty(writer, "level40Block", record.Level40Block, true);
+                    WriteJsonNumberProperty(writer, "level40NormalAttackDamageReduction", record.Level40NormalAttackDamageReduction, true);
+                    WriteJsonNumberProperty(writer, "break25CritRate", record.Break25CritRate, true);
+                    WriteJsonNumberProperty(writer, "break25CritDamage", record.Break25CritDamage, true);
+                    WriteJsonNumberProperty(writer, "break25Block", record.Break25Block, true);
+                    WriteJsonNumberProperty(writer, "break25NormalAttackDamageReduction", record.Break25NormalAttackDamageReduction, true);
+                    WriteJsonStringProperty(writer, "baseSetBonusDescription", record.BaseSetBonusDescription, true);
+                    WriteJsonStringProperty(writer, "level40SetBonusDescription", record.Level40SetBonusDescription, true);
+                    WriteJsonStringProperty(writer, "mythicSetBonusDescription", record.MythicSetBonusDescription, true);
+                    WriteJsonNumberProperty(writer, "level40SetBonusRequiredGearLevel", record.Level40SetBonusRequiredGearLevel, true);
+                    WriteJsonNumberProperty(writer, "mythicSetBonusRequiredBreakLevel", record.MythicSetBonusRequiredBreakLevel, false);
+
+                    writer.Write("  }");
+
+                    if (index < recordList.Count - 1)
+                    {
+                        writer.Write(",");
+                    }
+
+                    writer.WriteLine();
+                }
+
+                writer.WriteLine("]");
+            }
+        }
+
         private static List<CurrentGearSetBonusRecord>
             BuildCurrentGearSetBonuses(
                 string suitGroupPath,
@@ -1521,6 +1605,101 @@ namespace AtlasExtractor
             }
         }
 
+        private static string EscapeJson(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return string.Empty;
+            }
+
+            var result =
+                new StringBuilder();
+
+            foreach (char character in value)
+            {
+                switch (character)
+                {
+                    case '\\':
+                        result.Append("\\\\");
+                        break;
+
+                    case '"':
+                        result.Append("\\\"");
+                        break;
+
+                    case '\r':
+                        result.Append("\\r");
+                        break;
+
+                    case '\n':
+                        result.Append("\\n");
+                        break;
+
+                    case '\t':
+                        result.Append("\\t");
+                        break;
+
+                    default:
+                        if (character < 32)
+                        {
+                            result.Append(
+                                "\\u" +
+                                ((int)character).ToString(
+                                    "x4"));
+                        }
+                        else
+                        {
+                            result.Append(character);
+                        }
+
+                        break;
+                }
+            }
+
+            return result.ToString();
+        }
+
+        private static void WriteJsonStringProperty(
+            StreamWriter writer,
+            string name,
+            string value,
+            bool appendComma)
+        {
+            writer.Write("      \"");
+            writer.Write(EscapeJson(name));
+            writer.Write("\": \"");
+            writer.Write(EscapeJson(value));
+            writer.Write("\"");
+
+            if (appendComma)
+            {
+                writer.Write(",");
+            }
+
+            writer.WriteLine();
+        }
+
+        private static void WriteJsonNumberProperty(
+            StreamWriter writer,
+            string name,
+            int value,
+            bool appendComma)
+        {
+            writer.Write("      \"");
+            writer.Write(EscapeJson(name));
+            writer.Write("\": ");
+            writer.Write(
+                value.ToString(
+                    CultureInfo.InvariantCulture));
+
+            if (appendComma)
+            {
+                writer.Write(",");
+            }
+
+            writer.WriteLine();
+        }
+
         private sealed class CurrentGearSetSummaryRecord
         {
             public int SuitId { get; set; }
@@ -1705,6 +1884,8 @@ namespace AtlasExtractor
         }
     }
 }
+
+
 
 
 
