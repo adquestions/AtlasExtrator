@@ -263,7 +263,55 @@ namespace AtlasExtractor
 
                         Break25GearHpPercent =
                             group.Sum(piece =>
-                                piece.Break25GearHpPercent)
+                                piece.Break25GearHpPercent),
+
+                        BaseCritRate =
+                            group.Where(piece => piece.SpecialAttributeId == 8)
+                                .Sum(piece => piece.SpecialAttributeValue),
+
+                        BaseCritDamage =
+                            group.Where(piece => piece.SpecialAttributeId == 10)
+                                .Sum(piece => piece.SpecialAttributeValue),
+
+                        BaseBlock =
+                            group.Where(piece => piece.SpecialAttributeId == 16)
+                                .Sum(piece => piece.SpecialAttributeValue),
+
+                        BaseNormalAttackDamageReduction =
+                            group.Where(piece => piece.SpecialAttributeId == 26)
+                                .Sum(piece => piece.SpecialAttributeValue),
+
+                        Level40CritRate =
+                            group.Where(piece => piece.SpecialAttributeId == 8)
+                                .Sum(piece => piece.Level40SpecialAttributeValue),
+
+                        Level40CritDamage =
+                            group.Where(piece => piece.SpecialAttributeId == 10)
+                                .Sum(piece => piece.Level40SpecialAttributeValue),
+
+                        Level40Block =
+                            group.Where(piece => piece.SpecialAttributeId == 16)
+                                .Sum(piece => piece.Level40SpecialAttributeValue),
+
+                        Level40NormalAttackDamageReduction =
+                            group.Where(piece => piece.SpecialAttributeId == 26)
+                                .Sum(piece => piece.Level40SpecialAttributeValue),
+
+                        Break25CritRate =
+                            group.Where(piece => piece.SpecialAttributeId == 8)
+                                .Sum(piece => piece.Break25SpecialAttributeValue),
+
+                        Break25CritDamage =
+                            group.Where(piece => piece.SpecialAttributeId == 10)
+                                .Sum(piece => piece.Break25SpecialAttributeValue),
+
+                        Break25Block =
+                            group.Where(piece => piece.SpecialAttributeId == 16)
+                                .Sum(piece => piece.Break25SpecialAttributeValue),
+
+                        Break25NormalAttackDamageReduction =
+                            group.Where(piece => piece.SpecialAttributeId == 26)
+                                .Sum(piece => piece.Break25SpecialAttributeValue)
                     })
                 .OrderBy(record =>
                     record.SuitId)
@@ -295,7 +343,19 @@ namespace AtlasExtractor
                     "Break25GearAttack," +
                     "Break25GearHp," +
                     "Break25GearAttackPercent," +
-                    "Break25GearHpPercent");
+                    "Break25GearHpPercent," +
+                    "BaseCritRate," +
+                    "BaseCritDamage," +
+                    "BaseBlock," +
+                    "BaseNormalAttackDamageReduction," +
+                    "Level40CritRate," +
+                    "Level40CritDamage," +
+                    "Level40Block," +
+                    "Level40NormalAttackDamageReduction," +
+                    "Break25CritRate," +
+                    "Break25CritDamage," +
+                    "Break25Block," +
+                    "Break25NormalAttackDamageReduction");
 
                 foreach (CurrentGearSetSummaryRecord record
                     in records)
@@ -340,6 +400,42 @@ namespace AtlasExtractor
                             CultureInfo.InvariantCulture) +
                         "," +
                         record.Break25GearHpPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.BaseCritRate.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.BaseCritDamage.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.BaseBlock.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.BaseNormalAttackDamageReduction.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40CritRate.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40CritDamage.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40Block.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Level40NormalAttackDamageReduction.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25CritRate.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25CritDamage.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25Block.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.Break25NormalAttackDamageReduction.ToString(
                             CultureInfo.InvariantCulture));
                 }
             }
@@ -1391,6 +1487,30 @@ namespace AtlasExtractor
             public int Break25GearAttackPercent { get; set; }
 
             public int Break25GearHpPercent { get; set; }
+
+            public int BaseCritRate { get; set; }
+
+            public int BaseCritDamage { get; set; }
+
+            public int BaseBlock { get; set; }
+
+            public int BaseNormalAttackDamageReduction { get; set; }
+
+            public int Level40CritRate { get; set; }
+
+            public int Level40CritDamage { get; set; }
+
+            public int Level40Block { get; set; }
+
+            public int Level40NormalAttackDamageReduction { get; set; }
+
+            public int Break25CritRate { get; set; }
+
+            public int Break25CritDamage { get; set; }
+
+            public int Break25Block { get; set; }
+
+            public int Break25NormalAttackDamageReduction { get; set; }
         }
         private sealed class CurrentGearSetBonusRecord
         {
@@ -1512,6 +1632,7 @@ namespace AtlasExtractor
         }
     }
 }
+
 
 
 
