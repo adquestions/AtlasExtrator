@@ -13,9 +13,16 @@ namespace AtlasExtractor
             List<Dictionary<string, string>> levelRows =
                 ReadDancerLevelRows(outputFolder);
 
+            List<Dictionary<string, string>> starRows =
+                ReadDancerStarRows(outputFolder);
+
             Console.WriteLine(
                 "Dancer level rows loaded: " +
                 levelRows.Count);
+
+            Console.WriteLine(
+                "Dancer star rows loaded: " +
+                starRows.Count);
 
             string outputPath = Path.Combine(
                 outputFolder,
@@ -104,6 +111,10 @@ namespace AtlasExtractor
                 WriteLevelProgression(
                     writer,
                     levelRows);
+                writer.WriteLine(",");
+                WriteStarProgression(
+                    writer,
+                    starRows);
                 writer.WriteLine("}");
             }
 
@@ -114,9 +125,90 @@ namespace AtlasExtractor
             Console.WriteLine(
                 "Level rows exported: " +
                 levelRows.Count);
+            Console.WriteLine(
+                "Star rows exported: " +
+                starRows.Count);
             Console.WriteLine("JSON: " + outputPath);
 
             return 4;
+        }
+
+        private static void WriteStarProgression(
+            StreamWriter writer,
+            List<Dictionary<string, string>> starRows)
+        {
+            writer.WriteLine("  \"starProgression\": [");
+
+            for (int index = 0;
+                 index < starRows.Count;
+                 index++)
+            {
+                Dictionary<string, string> row =
+                    starRows[index];
+
+                int star = ParseIntValue(row, "star");
+                int substep = ParseIntValue(row, "star_sub");
+                int shardCost = ParseIntValue(row, "cosr");
+                long attackBonus = ParsePairAmount(
+                    GetValue(row, "extra_1"));
+                long hpBonus = ParsePairAmount(
+                    GetValue(row, "extra_2"));
+                double influenceMultiplier =
+                    ParseDoubleValue(
+                        row,
+                        "fightforce_ratio");
+                int skillId = ParseIntValue(row, "skill");
+                int skillLevel =
+                    ParseIntValue(row, "skill_level");
+
+                writer.WriteLine("    {");
+                writer.WriteLine(
+                    "      \"star\": " +
+                    star + ",");
+                writer.WriteLine(
+                    "      \"substep\": " +
+                    substep + ",");
+                writer.WriteLine(
+                    "      \"shardCost\": " +
+                    shardCost + ",");
+                writer.WriteLine(
+                    "      \"cumulativeAttackBonus\": " +
+                    attackBonus + ",");
+                writer.WriteLine(
+                    "      \"cumulativeHpBonus\": " +
+                    hpBonus + ",");
+                writer.WriteLine(
+                    "      \"influenceMultiplier\": " +
+                    influenceMultiplier.ToString(
+                        CultureInfo.InvariantCulture) + ",");
+                writer.WriteLine(
+                    "      \"skillId\": " +
+                    skillId + ",");
+                writer.WriteLine(
+                    "      \"skillLevel\": " +
+                    skillLevel);
+                writer.WriteLine(
+                    index < starRows.Count - 1
+                        ? "    },"
+                        : "    }");
+            }
+
+            writer.WriteLine("  ]");
+        }
+
+        private static double ParseDoubleValue(
+            IDictionary<string, string> row,
+            string column)
+        {
+            double value;
+
+            return double.TryParse(
+                    GetValue(row, column),
+                    NumberStyles.Float,
+                    CultureInfo.InvariantCulture,
+                    out value)
+                ? value
+                : 0D;
         }
 
         private static void WriteLevelProgression(
@@ -243,6 +335,45 @@ namespace AtlasExtractor
         }
 
         private static List<Dictionary<string, string>>
+            ReadDancerStarRows(string outputFolder)
+        {
+            string path = Path.Combine(
+                outputFolder,
+                "hero_star.csv");
+
+            List<Dictionary<string, string>> allRows =
+                BuildingDatasetExporter.ReadCsv(path);
+
+            var dancerRows =
+                new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in allRows)
+            {
+                if (GetValue(row, "hero_id") == "10005")
+                {
+                    dancerRows.Add(row);
+                }
+            }
+
+            dancerRows.Sort(
+                delegate(
+                    Dictionary<string, string> left,
+                    Dictionary<string, string> right)
+                {
+                    int starComparison =
+                        ParseIntValue(left, "star").CompareTo(
+                            ParseIntValue(right, "star"));
+
+                    return starComparison != 0
+                        ? starComparison
+                        : ParseIntValue(left, "star_sub").CompareTo(
+                            ParseIntValue(right, "star_sub"));
+                });
+
+            return dancerRows;
+        }
+
+        private static List<Dictionary<string, string>>
             ReadDancerLevelRows(string outputFolder)
         {
             string path = Path.Combine(
@@ -298,6 +429,10 @@ namespace AtlasExtractor
             return dancerRows;
         }    }
 }
+
+
+
+
 
 
 
