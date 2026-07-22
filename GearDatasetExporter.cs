@@ -112,9 +112,15 @@ namespace AtlasExtractor
                 piecesOutputPath,
                 pieceRecords);
 
+            List<CurrentGearSetBonusRecord> setBonusRecords =
+                BuildCurrentGearSetBonuses(
+                    suitGroupPath,
+                    localizationPath);
+
             List<CurrentGearSetSummaryRecord> setSummaryRecords =
                 BuildCurrentGearSetSummaries(
-                    pieceRecords);
+                    pieceRecords,
+                    setBonusRecords);
 
             string setSummaryOutputPath = Path.Combine(
                 outputFolder,
@@ -123,11 +129,6 @@ namespace AtlasExtractor
             WriteCurrentGearSetSummaries(
                 setSummaryOutputPath,
                 setSummaryRecords);
-
-            List<CurrentGearSetBonusRecord> setBonusRecords =
-                BuildCurrentGearSetBonuses(
-                    suitGroupPath,
-                    localizationPath);
 
             string setBonusesOutputPath = Path.Combine(
                 outputFolder,
@@ -201,8 +202,12 @@ namespace AtlasExtractor
 
         private static List<CurrentGearSetSummaryRecord>
             BuildCurrentGearSetSummaries(
-                IEnumerable<CurrentGearPieceRecord> pieces)
+                IEnumerable<CurrentGearPieceRecord> pieces,
+                IEnumerable<CurrentGearSetBonusRecord> bonuses)
         {
+            List<CurrentGearSetBonusRecord> bonusRecords =
+                bonuses.ToList();
+
             return pieces
                 .GroupBy(piece =>
                     new
@@ -311,7 +316,31 @@ namespace AtlasExtractor
 
                         Break25NormalAttackDamageReduction =
                             group.Where(piece => piece.SpecialAttributeId == 26)
-                                .Sum(piece => piece.Break25SpecialAttributeValue)
+                                .Sum(piece => piece.Break25SpecialAttributeValue),
+
+                        BaseSetBonusDescription =
+                            bonusRecords
+                                .Where(bonus =>
+                                    bonus.SuitId == group.Key.SuitId &&
+                                    bonus.Tier == 1)
+                                .Select(bonus => bonus.Description)
+                                .FirstOrDefault(),
+
+                        Level40SetBonusDescription =
+                            bonusRecords
+                                .Where(bonus =>
+                                    bonus.SuitId == group.Key.SuitId &&
+                                    bonus.Tier == 2)
+                                .Select(bonus => bonus.Description)
+                                .FirstOrDefault(),
+
+                        MythicSetBonusDescription =
+                            bonusRecords
+                                .Where(bonus =>
+                                    bonus.SuitId == group.Key.SuitId &&
+                                    bonus.Tier == 3)
+                                .Select(bonus => bonus.Description)
+                                .FirstOrDefault()
                     })
                 .OrderBy(record =>
                     record.SuitId)
@@ -355,7 +384,10 @@ namespace AtlasExtractor
                     "Break25CritRate," +
                     "Break25CritDamage," +
                     "Break25Block," +
-                    "Break25NormalAttackDamageReduction");
+                    "Break25NormalAttackDamageReduction," +
+                    "BaseSetBonusDescription," +
+                    "Level40SetBonusDescription," +
+                    "MythicSetBonusDescription");
 
                 foreach (CurrentGearSetSummaryRecord record
                     in records)
@@ -436,7 +468,13 @@ namespace AtlasExtractor
                             CultureInfo.InvariantCulture) +
                         "," +
                         record.Break25NormalAttackDamageReduction.ToString(
-                            CultureInfo.InvariantCulture));
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        EscapeCsv(record.BaseSetBonusDescription) +
+                        "," +
+                        EscapeCsv(record.Level40SetBonusDescription) +
+                        "," +
+                        EscapeCsv(record.MythicSetBonusDescription));
                 }
             }
         }
@@ -1511,6 +1549,12 @@ namespace AtlasExtractor
             public int Break25Block { get; set; }
 
             public int Break25NormalAttackDamageReduction { get; set; }
+
+            public string BaseSetBonusDescription { get; set; }
+
+            public string Level40SetBonusDescription { get; set; }
+
+            public string MythicSetBonusDescription { get; set; }
         }
         private sealed class CurrentGearSetBonusRecord
         {
@@ -1632,6 +1676,7 @@ namespace AtlasExtractor
         }
     }
 }
+
 
 
 
