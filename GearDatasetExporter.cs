@@ -197,6 +197,7 @@ namespace AtlasExtractor
                    breakRecords.Count +
                    totalRecords.Count +
                    pieceRecords.Count +
+                   setSummaryRecords.Count +
                    setBonusRecords.Count;
         }
 
