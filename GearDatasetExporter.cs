@@ -958,6 +958,52 @@ namespace AtlasExtractor
                                     specialAttributeId]
                                 : 0,
 
+                        MythicGearAttack =
+                            (level40Attributes.ContainsKey(65)
+                                ? level40Attributes[65]
+                                : 0) +
+                            (break25Attributes.ContainsKey(65)
+                                ? break25Attributes[65]
+                                : 0),
+
+                        MythicGearHp =
+                            (level40Attributes.ContainsKey(66)
+                                ? level40Attributes[66]
+                                : 0) +
+                            (break25Attributes.ContainsKey(66)
+                                ? break25Attributes[66]
+                                : 0),
+
+                        MythicGearAttackPercent =
+                            (level40Attributes.ContainsKey(165)
+                                ? level40Attributes[165]
+                                : 0) +
+                            (break25Attributes.ContainsKey(165)
+                                ? break25Attributes[165]
+                                : 0),
+
+                        MythicGearHpPercent =
+                            (level40Attributes.ContainsKey(166)
+                                ? level40Attributes[166]
+                                : 0) +
+                            (break25Attributes.ContainsKey(166)
+                                ? break25Attributes[166]
+                                : 0),
+
+                        MythicSpecialAttributeValue =
+                            (specialAttributeId != 0 &&
+                             level40Attributes.ContainsKey(
+                                 specialAttributeId)
+                                ? level40Attributes[
+                                    specialAttributeId]
+                                : 0) +
+                            (specialAttributeId != 0 &&
+                             break25Attributes.ContainsKey(
+                                 specialAttributeId)
+                                ? break25Attributes[
+                                    specialAttributeId]
+                                : 0),
+
                         BaseAttributes =
                             Get(row, "attr"),
 
@@ -1006,6 +1052,11 @@ namespace AtlasExtractor
                     "Break25GearAttackPercent," +
                     "Break25GearHpPercent," +
                     "Break25SpecialAttributeValue," +
+                    "MythicGearAttack," +
+                    "MythicGearHp," +
+                    "MythicGearAttackPercent," +
+                    "MythicGearHpPercent," +
+                    "MythicSpecialAttributeValue," +
                     "BaseAttributes," +
                     "BasePower");
 
@@ -1080,6 +1131,21 @@ namespace AtlasExtractor
                             CultureInfo.InvariantCulture) +
                         "," +
                         record.Break25SpecialAttributeValue.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicGearAttack.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicGearHp.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicGearAttackPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicGearHpPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicSpecialAttributeValue.ToString(
                             CultureInfo.InvariantCulture) +
                         "," +
                         EscapeCsv(record.BaseAttributes) +
@@ -1828,6 +1894,16 @@ namespace AtlasExtractor
 
             public int Break25SpecialAttributeValue { get; set; }
 
+            public int MythicGearAttack { get; set; }
+
+            public int MythicGearHp { get; set; }
+
+            public int MythicGearAttackPercent { get; set; }
+
+            public int MythicGearHpPercent { get; set; }
+
+            public int MythicSpecialAttributeValue { get; set; }
+
             public string BaseAttributes { get; set; }
 
             public string BasePower { get; set; }
@@ -1884,6 +1960,7 @@ namespace AtlasExtractor
         }
     }
 }
+
 
 
 
