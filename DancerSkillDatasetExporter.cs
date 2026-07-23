@@ -599,8 +599,8 @@ namespace AtlasExtractor
                     "mainAttribute",
                     out mainAttribute);
 
-                if (quality == "5" &&
-                    mainAttribute == "1")
+                if (quality == "4" &&
+                    mainAttribute == "2")
                 {
                     dancerRows.Add(row);
                 }
