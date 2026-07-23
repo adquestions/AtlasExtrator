@@ -32,11 +32,16 @@ namespace AtlasExtractor
                 outputFolder,
                 "equipment_suit_group.csv");
 
+            string unitPath = Path.Combine(
+                outputFolder,
+                "unit.csv");
+
             RequireFile(starUpPath);
             RequireFile(breakPath);
             RequireFile(equipmentPath);
             RequireFile(localizationPath);
             RequireFile(suitGroupPath);
+            RequireFile(unitPath);
 
             List<Dictionary<string, string>> rows =
                 ReadCsv(starUpPath);
@@ -146,6 +151,19 @@ namespace AtlasExtractor
                 setBonusesOutputPath,
                 setBonusRecords);
 
+            List<CurrentHeroProfileRecord> heroProfileRecords =
+                BuildCurrentHeroProfiles(
+                    unitPath,
+                    localizationPath);
+
+            string heroProfilesOutputPath = Path.Combine(
+                outputFolder,
+                "current_hero_profiles.csv");
+
+            WriteCurrentHeroProfiles(
+                heroProfilesOutputPath,
+                heroProfileRecords);
+
             Console.WriteLine();
             Console.WriteLine(
                 "Current gear level costs");
@@ -210,7 +228,8 @@ namespace AtlasExtractor
                    totalRecords.Count +
                    pieceRecords.Count +
                    setSummaryRecords.Count +
-                   setBonusRecords.Count;
+                   setBonusRecords.Count +
+                   heroProfileRecords.Count;
         }
 
         private static List<CurrentGearSetSummaryRecord>
@@ -605,6 +624,100 @@ namespace AtlasExtractor
 
                 writer.WriteLine("]");
             }
+        }
+
+        private static void WriteCurrentHeroProfiles(
+            string outputPath,
+            IEnumerable<CurrentHeroProfileRecord> records)
+        {
+            using (var writer = new StreamWriter(
+                outputPath,
+                false,
+                new UTF8Encoding(false)))
+            {
+                writer.WriteLine(
+                    "HeroId,HeroName,RaceId,FactionName," +
+                    "MainAttributeId,MainAttributeName," +
+                    "PrimaryRoleId,PrimaryRoleName," +
+                    "SecondaryRoleIds,SecondaryRoleNames," +
+                    "TroopTypeId");
+
+                foreach (CurrentHeroProfileRecord record in records)
+                {
+                    writer.WriteLine(
+                        record.HeroId.ToString(CultureInfo.InvariantCulture) + "," +
+                        EscapeCsv(record.HeroName) + "," +
+                        record.RaceId.ToString(CultureInfo.InvariantCulture) + "," +
+                        EscapeCsv(record.FactionName) + "," +
+                        record.MainAttributeId.ToString(CultureInfo.InvariantCulture) + "," +
+                        EscapeCsv(record.MainAttributeName) + "," +
+                        record.PrimaryRoleId.ToString(CultureInfo.InvariantCulture) + "," +
+                        EscapeCsv(record.PrimaryRoleName) + "," +
+                        EscapeCsv(record.SecondaryRoleIds) + "," +
+                        EscapeCsv(record.SecondaryRoleNames) + "," +
+                        record.TroopTypeId.ToString(CultureInfo.InvariantCulture));
+                }
+            }
+        }
+
+        private static List<CurrentHeroProfileRecord>
+            BuildCurrentHeroProfiles(
+                string unitPath,
+                string localizationPath)
+        {
+            Dictionary<string, string> localization =
+                ReadCsv(localizationPath)
+                    .Where(row =>
+                        !string.IsNullOrWhiteSpace(
+                            Get(row, "key")))
+                    .GroupBy(row =>
+                        Get(row, "key"))
+                    .ToDictionary(
+                        group => group.Key,
+                        group => Get(
+                            group.First(),
+                            "value"),
+                        StringComparer.OrdinalIgnoreCase);
+
+            return ReadCsv(unitPath)
+                .Where(row =>
+                    Get(row, "type") == "1" &&
+                    ParseInt(Get(row, "id")) < 15000)
+                .Select(row =>
+                    new CurrentHeroProfileRecord
+                    {
+                        HeroId = ParseInt(Get(row, "id")),
+                        HeroName = localization.ContainsKey(Get(row, "name"))
+                            ? localization[Get(row, "name")]
+                            : Get(row, "name"),
+                        RaceId = ParseInt(Get(row, "race")),
+                        FactionName = localization.ContainsKey(
+                            "unit_race_" + Get(row, "race"))
+                            ? localization["unit_race_" + Get(row, "race")]
+                            : Get(row, "race"),
+                        MainAttributeId = ParseInt(Get(row, "mainAttribute")),
+                        MainAttributeName = localization.ContainsKey(
+                            "unit_arrti_" + Get(row, "mainAttribute"))
+                            ? localization["unit_arrti_" + Get(row, "mainAttribute")]
+                            : Get(row, "mainAttribute"),
+                        PrimaryRoleId = ParseInt(Get(row, "title_1")),
+                        PrimaryRoleName = localization.ContainsKey(
+                            "hero_title1_" + Get(row, "title_1"))
+                            ? localization["hero_title1_" + Get(row, "title_1")]
+                            : Get(row, "title_1"),
+                        SecondaryRoleIds = Get(row, "title_2"),
+                        SecondaryRoleNames = string.Join(
+                            " | ",
+                            Get(row, "title_2")
+                                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                .Select(id =>
+                                    localization.ContainsKey("hero_title2_" + id)
+                                        ? localization["hero_title2_" + id]
+                                        : id)),
+                        TroopTypeId = ParseInt(Get(row, "troop"))
+                    })
+                .OrderBy(record => record.HeroId)
+                .ToList();
         }
 
         private static List<CurrentGearSetBonusRecord>
@@ -1958,6 +2071,21 @@ namespace AtlasExtractor
                 set;
             }
         }
+        private sealed class CurrentHeroProfileRecord
+        {
+            public int HeroId { get; set; }
+            public string HeroName { get; set; }
+            public int RaceId { get; set; }
+            public string FactionName { get; set; }
+            public int MainAttributeId { get; set; }
+            public string MainAttributeName { get; set; }
+            public int PrimaryRoleId { get; set; }
+            public string PrimaryRoleName { get; set; }
+            public string SecondaryRoleIds { get; set; }
+            public string SecondaryRoleNames { get; set; }
+            public int TroopTypeId { get; set; }
+        }
+
         private sealed class GearBreakCostRecord
         {
             public int BreakLevel { get; set; }
