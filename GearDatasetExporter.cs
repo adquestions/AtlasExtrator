@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -402,6 +402,10 @@ namespace AtlasExtractor
                     "Break25GearHp," +
                     "Break25GearAttackPercent," +
                     "Break25GearHpPercent," +
+                    "MythicGearAttack," +
+                    "MythicGearHp," +
+                    "MythicGearAttackPercent," +
+                    "MythicGearHpPercent," +
                     "BaseCritRate," +
                     "BaseCritDamage," +
                     "BaseBlock," +
@@ -463,6 +467,18 @@ namespace AtlasExtractor
                             CultureInfo.InvariantCulture) +
                         "," +
                         record.Break25GearHpPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicGearAttack.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicGearHp.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicGearAttackPercent.ToString(
+                            CultureInfo.InvariantCulture) +
+                        "," +
+                        record.MythicGearHpPercent.ToString(
                             CultureInfo.InvariantCulture) +
                         "," +
                         record.BaseCritRate.ToString(
@@ -555,6 +571,10 @@ namespace AtlasExtractor
                     WriteJsonNumberProperty(writer, "break25GearHp", record.Break25GearHp, true);
                     WriteJsonNumberProperty(writer, "break25GearAttackPercent", record.Break25GearAttackPercent, true);
                     WriteJsonNumberProperty(writer, "break25GearHpPercent", record.Break25GearHpPercent, true);
+                    WriteJsonNumberProperty(writer, "mythicGearAttack", record.MythicGearAttack, true);
+                    WriteJsonNumberProperty(writer, "mythicGearHp", record.MythicGearHp, true);
+                    WriteJsonNumberProperty(writer, "mythicGearAttackPercent", record.MythicGearAttackPercent, true);
+                    WriteJsonNumberProperty(writer, "mythicGearHpPercent", record.MythicGearHpPercent, true);
                     WriteJsonNumberProperty(writer, "baseCritRate", record.BaseCritRate, true);
                     WriteJsonNumberProperty(writer, "baseCritDamage", record.BaseCritDamage, true);
                     WriteJsonNumberProperty(writer, "baseBlock", record.BaseBlock, true);
@@ -1795,6 +1815,14 @@ namespace AtlasExtractor
             public int Break25GearAttackPercent { get; set; }
 
             public int Break25GearHpPercent { get; set; }
+
+            public int MythicGearAttack => Level40GearAttack + Break25GearAttack;
+
+            public int MythicGearHp => Level40GearHp + Break25GearHp;
+
+            public int MythicGearAttackPercent => Level40GearAttackPercent + Break25GearAttackPercent;
+
+            public int MythicGearHpPercent => Level40GearHpPercent + Break25GearHpPercent;
 
             public int BaseCritRate { get; set; }
 
