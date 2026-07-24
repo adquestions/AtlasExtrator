@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -163,6 +163,19 @@ namespace AtlasExtractor
             WriteCurrentHeroProfiles(
                 heroProfilesOutputPath,
                 heroProfileRecords);
+            List<CurrentHeroGearRecommendationRecord>
+                heroGearRecommendationRecords =
+                    BuildCurrentHeroGearRecommendations(
+                        heroProfileRecords);
+
+            string heroGearRecommendationsOutputPath =
+                Path.Combine(
+                    outputFolder,
+                    "current_hero_gear_recommendations.csv");
+
+            WriteCurrentHeroGearRecommendations(
+                heroGearRecommendationsOutputPath,
+                heroGearRecommendationRecords);
 
             Console.WriteLine();
             Console.WriteLine(
@@ -660,6 +673,34 @@ namespace AtlasExtractor
             }
         }
 
+        private static void WriteCurrentHeroGearRecommendations(
+            string outputPath,
+            IEnumerable<CurrentHeroGearRecommendationRecord> records)
+        {
+            using (var writer = new StreamWriter(
+                outputPath,
+                false,
+                new UTF8Encoding(false)))
+            {
+                writer.WriteLine(
+                    "HeroId,HeroName,RecommendedSet,AlternativeSet," +
+                    "Confidence,NeedsTesting,Reason");
+
+                foreach (
+                    CurrentHeroGearRecommendationRecord record in records)
+                {
+                    writer.WriteLine(
+                        record.HeroId.ToString(
+                            CultureInfo.InvariantCulture) + "," +
+                        EscapeCsv(record.HeroName) + "," +
+                        EscapeCsv(record.RecommendedSet) + "," +
+                        EscapeCsv(record.AlternativeSet) + "," +
+                        EscapeCsv(record.Confidence) + "," +
+                        record.NeedsTesting.ToString() + "," +
+                        EscapeCsv(record.Reason));
+                }
+            }
+        }
         private static List<CurrentHeroProfileRecord>
             BuildCurrentHeroProfiles(
                 string unitPath,
@@ -720,6 +761,120 @@ namespace AtlasExtractor
                 .ToList();
         }
 
+        private static List<CurrentHeroGearRecommendationRecord>
+            BuildCurrentHeroGearRecommendations(
+                IEnumerable<CurrentHeroProfileRecord> profiles)
+        {
+            var gloryDpsCandidates = new HashSet<string>(
+                new[]
+                {
+                    "Warrior",
+                    "Priestess",
+                    "Stonemason",
+                    "Tidecaller"
+                },
+                StringComparer.OrdinalIgnoreCase);
+
+            var highPriorityTesting = new HashSet<string>(
+                new[]
+                {
+                    "Artificer",
+                    "Bishop",
+                    "Hostess",
+                    "Lilia Maid",
+                    "Paragon",
+                    "Priestess",
+                    "Stonemason",
+                    "Tidecaller",
+                    "Warrior"
+                },
+                StringComparer.OrdinalIgnoreCase);
+
+            return profiles
+                .Select(profile =>
+                {
+                    string recommendedSet;
+                    string alternativeSet;
+                    string reason;
+
+                    if (profile.HeroName.Equals(
+                        "Soulmancer",
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        recommendedSet = "Fury of Blood";
+                        alternativeSet = "Glory of the Knight";
+                        reason =
+                            "Defensive support kit emphasizes damage sharing, " +
+                            "Max HP shields, survival, and damage reduction.";
+                    }
+                    else if (profile.HeroName.Equals(
+                        "Hostess",
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        recommendedSet = "Glory of the Knight";
+                        alternativeSet = "Fury of Blood";
+                        reason =
+                            "Healing and shields scale strongly from Attack, " +
+                            "while built-in damage reduction supports tanking.";
+                    }
+                    else if (gloryDpsCandidates.Contains(profile.HeroName))
+                    {
+                        recommendedSet = "Glory of the Knight";
+                        alternativeSet = "Titan's Might";
+                        reason =
+                            "Mixed Attack and HP scaling or substantial " +
+                            "summon, shield, control, or team-support value.";
+                    }
+                    else if (profile.PrimaryRoleName.Equals(
+                        "Tank",
+                        StringComparison.OrdinalIgnoreCase))
+                    {
+                        recommendedSet = "Fury of Blood";
+                        alternativeSet = "Glory of the Knight";
+                        reason =
+                            "Tank baseline prioritizes HP, shields, healing, " +
+                            "damage reduction, and frontline survival.";
+                    }
+                    else if (
+                        profile.PrimaryRoleName.Equals(
+                            "Damage Dealer",
+                            StringComparison.OrdinalIgnoreCase) &&
+                        profile.MainAttributeName.Equals(
+                            "DPS",
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        recommendedSet = "Titan's Might";
+                        alternativeSet = "Glory of the Knight";
+                        reason =
+                            "Damage-dealer baseline prioritizes Attack and " +
+                            "direct offensive scaling.";
+                    }
+                    else
+                    {
+                        recommendedSet = "Glory of the Knight";
+                        alternativeSet = "Fury of Blood";
+                        reason =
+                            "Balanced support baseline benefits from mixed " +
+                            "Attack, HP, and skill-oriented bonuses.";
+                    }
+
+                    bool needsTesting =
+                        highPriorityTesting.Contains(profile.HeroName);
+
+                    return new CurrentHeroGearRecommendationRecord
+                    {
+                        HeroId = profile.HeroId,
+                        HeroName = profile.HeroName,
+                        RecommendedSet = recommendedSet,
+                        AlternativeSet = alternativeSet,
+                        Confidence = needsTesting ? "Provisional" : "Baseline",
+                        NeedsTesting = needsTesting,
+                        Reason = reason
+                    };
+                })
+                .OrderBy(record => record.HeroId)
+                .ToList();
+        }
         private static List<CurrentGearSetBonusRecord>
             BuildCurrentGearSetBonuses(
                 string suitGroupPath,
@@ -2086,6 +2241,16 @@ namespace AtlasExtractor
             public int TroopTypeId { get; set; }
         }
 
+        private sealed class CurrentHeroGearRecommendationRecord
+        {
+            public int HeroId { get; set; }
+            public string HeroName { get; set; }
+            public string RecommendedSet { get; set; }
+            public string AlternativeSet { get; set; }
+            public string Confidence { get; set; }
+            public bool NeedsTesting { get; set; }
+            public string Reason { get; set; }
+        }
         private sealed class GearBreakCostRecord
         {
             public int BreakLevel { get; set; }
@@ -2116,6 +2281,13 @@ namespace AtlasExtractor
         }
     }
 }
+
+
+
+
+
+
+
 
 
 
